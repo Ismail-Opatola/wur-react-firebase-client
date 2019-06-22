@@ -3,7 +3,9 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
+  SET_QUESTION,
   ANSWER_QUESTION,
+  DELETE_QUESTION,
   MARK_NOTIFICATIONS_READ
 } from "../types";
 
@@ -35,16 +37,29 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case SET_QUESTION:
+      return {
+        ...state,
+        question: [
+          ...state.votes,
+            action.payload.questionId
+        ],
+        score: state.score + 1
+      };
     case ANSWER_QUESTION:
       return {
         ...state,
         votes: [
-          ...state.likes,
-          {
-            userHandle: state.credentials.handle,
-            questionId: action.payload.questionId
-          }
-        ]
+          ...state.votes,
+            action.payload.questionId
+        ],
+        score: state.score + 1
+      };
+    case DELETE_QUESTION:
+      return {
+        ...state,
+        votes: state.votes.filter(vote => vote === action.payload.questionId ),
+        score: state.score - 1
       };
     case MARK_NOTIFICATIONS_READ:
       state.notifications.forEach(not => (not.read = true));

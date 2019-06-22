@@ -18,6 +18,7 @@ import AuthRoute from "./util/authRoute";
 
 // pages
 import Home from "./pages/home";
+import Leaderboard from "./pages/leaderboard";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import User from "./pages/user";
@@ -67,6 +68,7 @@ function App() {
                 path
                 to="/user/:userId/question/:questionId"
                 component={User}
+              <Route exact path to="/leaderboard" component={Leaderboard} />
               />
             </Switch>
           </div>

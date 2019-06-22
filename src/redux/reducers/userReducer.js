@@ -7,7 +7,7 @@ import {
   POST_VOTE,
   DELETE_QUESTION,
   MARK_NOTIFICATIONS_READ
-} from "../types";
+} from "../action-types";
 
 const initialState = {
   authenticated: false,

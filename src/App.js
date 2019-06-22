@@ -13,6 +13,8 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 // components
 import Navbar from "./components/layout/navbar";
+import themeObject from "./util/theme";
+import AuthRoute from "./util/AuthRoute";
 
 // pages
 import Home from "./pages/home";
@@ -21,6 +23,8 @@ import Signup from "./pages/signup";
 import User from "./pages/user";
 
 import axios from "axios";
+
+const theme = createMuiTheme(themeObject);
 
 axios.defaults.baseURL =
   "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api"; // #34 cors --- deployment
@@ -40,25 +44,27 @@ if (token) {
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <Navbar />
-        <div>
-          <Switch>
-            <Route exact path to="/" component={Home} />
-            <Route exact path to="/login" component={Login} />
-            <Route exact path to="/signup" component={Signup} />
-            <Route exact path to="/user/:userId" component={User} />
-            <Route
-              exact
-              path
-              to="/user/:userId/question/:questionId"
-              component={User}
-            />
-          </Switch>
-        </div>
-      </Router>
-    </Provider>
+    <MuiThemeProvider theme={theme}>
+      <Provider store={store}>
+        <Router>
+          <Navbar />
+          <div>
+            <Switch>
+              <Route exact path to="/" component={Home} />
+              <AuthRoute exact path to="/login" component={Login} />
+              <AuthRoute exact path to="/signup" component={Signup} />
+              <Route exact path to="/user/:userId" component={User} />
+              <Route
+                exact
+                path
+                to="/user/:userId/question/:questionId"
+                component={User}
+              />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    </MuiThemeProvider>
   );
 }
 

@@ -24,11 +24,12 @@ import User from "./pages/user";
 
 import axios from "axios";
 
+// custom theme
 const theme = createMuiTheme(themeObject);
 
-// set baseURL
+// set default baseURL
 axios.defaults.baseURL =
-  "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api"; // #34 cors --- deployment
+  "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api"; 
 
 // @ check session user has token
 // @ set headers auth prop to token

@@ -26,9 +26,13 @@ import axios from "axios";
 
 const theme = createMuiTheme(themeObject);
 
+// set baseURL
 axios.defaults.baseURL =
   "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api"; // #34 cors --- deployment
 
+// @ check session user has token
+// @ set headers auth prop to token
+// @ if session experired sign user out
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
@@ -41,6 +45,9 @@ if (token) {
     store.dispatch(getUserData());
   }
 }
+
+// @ if no user token allow reads
+// @ if user token allow reads, writes and updates
 
 function App() {
   return (

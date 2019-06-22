@@ -4,7 +4,7 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   SET_QUESTION,
-  ANSWER_QUESTION,
+  POST_VOTE,
   DELETE_QUESTION,
   MARK_NOTIFICATIONS_READ
 } from "../types";
@@ -13,7 +13,6 @@ const initialState = {
   authenticated: false,
   loading: false,
   credentials: {},
-  votes: [],
   notifications: []
 };
 
@@ -40,26 +39,31 @@ export default function(state = initialState, action) {
     case SET_QUESTION:
       return {
         ...state,
-        question: [
-          ...state.votes,
+        credentials: {
+          ...state.credentials,
+          questions: state.credentials.questions.concat(
             action.payload.questionId
-        ],
-        score: state.score + 1
+          ),
+          score: state.credentials.score + 1
+        }
       };
-    case ANSWER_QUESTION:
+    case POST_VOTE:
       return {
         ...state,
-        votes: [
-          ...state.votes,
-            action.payload.questionId
-        ],
-        score: state.score + 1
+        credentials: {
+          ...state.credentials,
+          votes: state.credentials.votes.concat(action.payload.questionId),
+          score: state.credentials.score + 1
+        }
       };
     case DELETE_QUESTION:
       return {
         ...state,
-        votes: state.votes.filter(vote => vote === action.payload.questionId ),
-        score: state.score - 1
+        credentials: {
+          ...state.credentials,
+          questions: state.credentials.questions.filter( questionId => questionId !== action.payload.questionId ),
+          score: state.credentials.score - 1
+        }
       };
     case MARK_NOTIFICATIONS_READ:
       state.notifications.forEach(not => (not.read = true));

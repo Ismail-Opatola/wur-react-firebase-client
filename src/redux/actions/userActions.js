@@ -9,9 +9,10 @@ import {
 } from "../types";
 import axios from "axios";
 
+// @ dispatch login
 export const loginUser = (userData, history) => dispatch => {
-  dispatch({ type: LOADING_UI });
-  axios
+    dispatch({ type: LOADING_UI });
+    axios
     .post("/login", userData)
     .then(res => {
       setAuthorizationHeader(res.data.token);
@@ -20,15 +21,16 @@ export const loginUser = (userData, history) => dispatch => {
       history.push("/");
     })
     .catch(err => {
-      dispatch({
+        dispatch({
         type: SET_ERRORS,
         payload: err.response.data
       });
     });
 };
 
+// @ dispatch signup
 export const signupUser = (newUserData, history) => dispatch => {
-  dispatch({ type: LOADING_UI });
+    dispatch({ type: LOADING_UI });
   axios
     .post("/signup", newUserData)
     .then(res => {
@@ -45,6 +47,7 @@ export const signupUser = (newUserData, history) => dispatch => {
     });
 };
 
+// @ get session user profile data
 export const getUserData = () => dispatch => {
   dispatch({ type: LOADING_USER });
   axios
@@ -58,6 +61,7 @@ export const getUserData = () => dispatch => {
     .catch(err => console.log(err));
 };
 
+// @ set header to user token & save token in user device
 const setAuthorizationHeader = token => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);

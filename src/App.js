@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 // components
-import Nav from './components/layout/nav';
+import Nav from './components/layout/navbar';
 
 // pages
 import Home from './pages/home';

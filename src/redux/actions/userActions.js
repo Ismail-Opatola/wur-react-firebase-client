@@ -6,14 +6,47 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   MARK_NOTIFICATIONS_READ
-} from "../types";
+} from "../action-types";
 import axios from "axios";
+
+// ============
+// USER TOKEN
+// ============
+
+// @ set header to user token & save token in user device
+const setAuthorizationHeader = token => {
+  const FBIdToken = `Bearer ${token}`;
+  localStorage.setItem("FBIdToken", FBIdToken);
+  axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+// ============
+// USER DATA
+// ============
+
+// @ get session user profile data
+export const getUserData = () => dispatch => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .get("/user")
+    .then(res => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+// ===============
+// USER SESSION
+// ===============
 
 // @ dispatch login
 export const loginUser = (userData, history) => dispatch => {
-    dispatch({ type: LOADING_UI });
-    axios
-    .post("/login", userData)
+  dispatch({ type: LOADING_UI });
+  axios
+    .post("/sessions", userData)
     .then(res => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
@@ -21,7 +54,7 @@ export const loginUser = (userData, history) => dispatch => {
       history.push("/");
     })
     .catch(err => {
-        dispatch({
+      dispatch({
         type: SET_ERRORS,
         payload: err.response.data
       });
@@ -30,7 +63,7 @@ export const loginUser = (userData, history) => dispatch => {
 
 // @ dispatch signup
 export const signupUser = (newUserData, history) => dispatch => {
-    dispatch({ type: LOADING_UI });
+  dispatch({ type: LOADING_UI });
   axios
     .post("/signup", newUserData)
     .then(res => {
@@ -47,23 +80,9 @@ export const signupUser = (newUserData, history) => dispatch => {
     });
 };
 
-// @ get session user profile data
-export const getUserData = () => dispatch => {
-  dispatch({ type: LOADING_USER });
-  axios
-    .get("/user")
-    .then(res => {
-      dispatch({
-        type: SET_USER,
-        payload: res.data
-      });
-    })
-    .catch(err => console.log(err));
-};
-
-// @ set header to user token & save token in user device
-const setAuthorizationHeader = token => {
-  const FBIdToken = `Bearer ${token}`;
-  localStorage.setItem("FBIdToken", FBIdToken);
-  axios.defaults.headers.common["Authorization"] = FBIdToken;
+// @ loginout session user
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem("FBIdToken");
+  delete axios.defaults.headers.common["Authorization"];
+  dispatch({ type: SET_UNAUTHENTICATED });
 };

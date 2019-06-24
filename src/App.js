@@ -8,7 +8,7 @@ import jwtDecode from "jwt-decode";
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { SET_AUTHENTICATED } from "./redux/types";
+import { SET_AUTHENTICATED } from "./redux/action-types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 // components
@@ -30,7 +30,7 @@ const theme = createMuiTheme(themeObject);
 
 // set default baseURL
 axios.defaults.baseURL =
-  "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api"; 
+  "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api";
 
 // @ check session user has token
 // @ set headers auth prop to token
@@ -51,31 +51,32 @@ if (token) {
 // @ if no user token allow reads
 // @ if user token allow reads, writes and updates
 
-function App() {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Router>
-          <Navbar />
-          <div>
-            <Switch>
-              <Route exact path to="/" component={Home} />
-              <AuthRoute exact path to="/login" component={Login} />
-              <AuthRoute exact path to="/signup" component={Signup} />
-              <Route exact path to="/user/:userId" component={User} />
-              <Route
-                exact
-                path
-                to="/user/:userId/question/:questionId"
-                component={User}
-              <Route exact path to="/leaderboard" component={Leaderboard} />
-              />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
-    </MuiThemeProvider>
-  );
+class App extends Component {
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+          <Router>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <AuthRoute exact path="/login" component={Login} />
+                <AuthRoute exact path="/signup" component={Signup} />
+                <Route exact path="/user/:userId" component={User} />
+                <Route
+                  exact
+                  path="/user/:userId/question/:questionId"
+                  component={User}
+                />
+                <Route exact path="/leaderboard" component={Leaderboard} />
+              </Switch>
+            </div>
+          </Router>
+        </Provider>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;

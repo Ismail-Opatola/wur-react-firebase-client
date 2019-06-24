@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import PropTypes from 'prop-types';
-import AppIcon from '../images/icon.png';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
+import PropTypes from "prop-types";
+import AppIcon from "../images/icon.png";
+import { Link } from "react-router-dom";
 
 // MUI Stuff
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // Redux stuff
-import { connect } from 'react-redux';
-import { signupUser } from '../redux/actions/userActions';
+import { connect } from "react-redux";
+import { signupUser } from "../redux/actions/userActions";
 
-const styles = (theme) => ({
+const styles = theme => ({
   ...theme
 });
 
@@ -22,10 +22,11 @@ class signup extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      handle: '',
+      email: "",
+      password: "",
+      confirmPassword: "",
+      firstName: "",
+      lastName: "",
       errors: {}
     };
   }
@@ -34,7 +35,7 @@ class signup extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     this.setState({
       loading: true
@@ -43,11 +44,12 @@ class signup extends Component {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
     };
     this.props.signupUser(newUserData, this.props.history);
   };
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -68,6 +70,33 @@ class signup extends Component {
             SignUp
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
+            <div className="inlineN">
+              <TextField
+                id="firstName"
+                name="firstName"
+                type="text"
+                label="Firstname"
+                className={classes.textField}
+                helperText={errors.firstName}
+                error={errors.firstName ? true : false}
+                value={this.state.firstName}
+                onChange={this.handleChange}
+                // fullWidth
+              />
+              <TextField
+                id="lastName"
+                name="lastName"
+                type="text"
+                label="Lastname"
+                className={classes.textField}
+                helperText={errors.lastName}
+                error={errors.lastName ? true : false}
+                value={this.state.lastName}
+                onChange={this.handleChange}
+                // fullWidth
+              />
+            </div>
+
             <TextField
               id="email"
               name="email"
@@ -104,18 +133,7 @@ class signup extends Component {
               onChange={this.handleChange}
               fullWidth
             />
-            <TextField
-              id="handle"
-              name="handle"
-              type="text"
-              label="Handle"
-              className={classes.textField}
-              helperText={errors.handle}
-              error={errors.handle ? true : false}
-              value={this.state.handle}
-              onChange={this.handleChange}
-              fullWidth
-            />
+
             {errors.general && (
               <Typography variant="body2" className={classes.customError}>
                 {errors.general}
@@ -152,7 +170,7 @@ signup.propTypes = {
   signupUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user,
   UI: state.UI
 });
@@ -161,4 +179,3 @@ export default connect(
   mapStateToProps,
   { signupUser }
 )(withStyles(styles)(signup));
-

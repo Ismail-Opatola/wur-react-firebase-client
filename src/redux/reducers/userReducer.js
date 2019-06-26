@@ -3,7 +3,7 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  SET_QUESTION,
+  POST_QUESTION,
   POST_VOTE,
   DELETE_QUESTION,
   MARK_NOTIFICATIONS_READ
@@ -36,7 +36,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
-    case SET_QUESTION:
+    case POST_QUESTION:
       return {
         ...state,
         credentials: {
@@ -61,7 +61,9 @@ export default function(state = initialState, action) {
         ...state,
         credentials: {
           ...state.credentials,
-          questions: state.credentials.questions.filter( questionId => questionId !== action.payload.questionId ),
+          questions: state.credentials.questions.filter(
+            questionId => questionId !== action.payload.questionId
+          ),
           score: state.credentials.score - 1
         }
       };

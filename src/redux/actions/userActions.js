@@ -54,9 +54,10 @@ export const loginUser = (userData, history) => dispatch => {
       history.push("/");
     })
     .catch(err => {
+      console.log('login ERROR:', err);
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data
+        payload: err.response
       });
     });
 };
@@ -81,6 +82,7 @@ export const signupUser = (newUserData, history) => dispatch => {
 };
 
 // @ loginout session user
+// TODO: REQ LOGOUT
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("FBIdToken");
   delete axios.defaults.headers.common["Authorization"];

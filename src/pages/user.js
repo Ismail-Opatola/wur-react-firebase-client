@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 export class user extends Component {
-    static propTypes = {
-        prop: PropTypes
-    }
+    // static propTypes = {
+    //     prop: PropTypes
+    // }
 
     render() {
         return (

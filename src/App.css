@@ -25,3 +25,7 @@ a {
   display: flex;
   justify-content: space-between;
 }
+.inlineB {
+  display: flex;
+  justify-content: center;
+}

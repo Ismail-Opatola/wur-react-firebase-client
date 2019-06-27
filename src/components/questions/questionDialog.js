@@ -213,7 +213,12 @@ class QuestionDialog extends Component {
               <Typography variant="h6">Results:</Typography>
               <hr className={classes.invisibleSeparator} />
               <div>
-                <ResultPoll question={question} />
+                <ResultPoll
+                  question={question}
+                  votersPercentage={votersPercentage}
+                  votersRatio={votersRatio}
+                  yourVote={yourVote}
+                />
               </div>
             </Grid>
           </Grid>
@@ -248,7 +253,9 @@ class QuestionDialog extends Component {
               <hr className={classes.visibleSeparator} />
               {!votersAvi.length ? (
                 <p className={classes.root}>
-                  <small><Emoji symbol="🤔" label='pondering'/> Not Votes Yet</small>
+                  <small>
+                    <Emoji symbol="🤔" label="pondering" /> Not Votes Yet
+                  </small>
                 </p>
               ) : (
                 <div className={classes.root}>{votersAvi}</div>

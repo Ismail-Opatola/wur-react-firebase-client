@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 // components
 import MyButton from "../../util/MyButton";
-// import PostQuestion from "../question/postQuestion";
+import PostQuestion from "../questions/PostQuestion";
 // import Notifications from "./Notifications";
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -24,13 +24,13 @@ class Navbar extends Component {
         <Toolbar className="nav-container">
           {authenticated ? (
             <Fragment>
-              {/* <PostQuestion /> */}
-              <div>Post a Question</div>
+              
               <Link to="/">
                 <MyButton tip="Home">
                   <HomeIcon />
                 </MyButton>
               </Link>
+              <PostQuestion />
               <Link to="/leaderboard">
                 <MyButton tip="Leaderboard">
                   <AssessmentIcon />

@@ -64,6 +64,15 @@ class PostQuestion extends Component {
   };
   handleSubmit = event => {
     event.preventDefault();
+    if (
+      this.state.optionOne.trim() === "" ||
+      this.state.optionTwo.trim() === ""
+    )
+      return this.setState({
+        errors: {
+          body: "😊 Can't submit empty field!"
+        }
+      });
     this.props.postQuestion({
       optionOne: this.state.optionOne,
       optionTwo: this.state.optionTwo
@@ -95,16 +104,16 @@ class PostQuestion extends Component {
           </MyButton>
           <DialogTitle
             style={{
-              textAlign: "center",
+              textAlign: "center"
             }}
           >
-          <Typography
+            <Typography
               style={{
-              fontWeight: 900,
-              color: "darkgrey"
-            }}
+                fontWeight: 900,
+                color: "darkgrey"
+              }}
             >
-            Post A New Question
+              Post A New Question
             </Typography>
           </DialogTitle>
           <DialogContent>
@@ -118,7 +127,7 @@ class PostQuestion extends Component {
               <p>Complete the question:</p>
             </Typography>
             <Typography
-            //   color="primary"
+              //   color="primary"
               style={{
                 marginTop: ".5em",
                 fontWeight: 900,
@@ -150,7 +159,7 @@ class PostQuestion extends Component {
                   padding: "1.5em",
                   fontWeight: 900,
                   fontSize: "1em",
-                color: "purple"
+                  color: "purple"
                 }}
               >
                 <span> OR </span>

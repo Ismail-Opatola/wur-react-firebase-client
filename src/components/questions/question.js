@@ -33,13 +33,14 @@ const styles = {
   },
   content: {
     padding: 25,
-    objectFit: "cover" // ask stack, prevent img stretch
+    objectFit: "cover", // ask stack, prevent img stretch,    
   },
   ellipsis: {
+    fontWeight: 500,
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    width: 500
+    width: 350
   }
 };
 
@@ -81,6 +82,7 @@ class question extends Component {
             component={Link}
             to={`/users/${authorId}`}
             color="primary"
+            style={{ fontWeight: 900, fontSize: "1em" }}
           >
             {author}
           </Typography>
@@ -91,7 +93,10 @@ class question extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
 
-          <Typography variant="body1" className={classes.ellipsis}>
+          <Typography
+            variant="body1"
+            className={classes.ellipsis}
+          >
             Would you rather {optionOne.text} or {optionTwo.text}
           </Typography>
 

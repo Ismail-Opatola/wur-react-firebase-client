@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+// import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
@@ -11,6 +12,27 @@ import Button from "@material-ui/core/Button";
 
 import { connect } from "react-redux";
 import { getQuestions } from "../redux/actions/dataActions";
+
+// const styles = theme => ({
+
+//   buttonRoot: {
+//     "&":{ fontWeight: 900 , color: "grey"},
+//     "&:hover": {
+//       color: "darkGrey",
+//       opacity: 1
+//     },
+//     "&:focus": {
+//       color: "darkGrey",
+//       opacity: 0.8
+
+//     },
+//     "&:active": {
+//       color: "darkGrey",
+//       opacity: 0.8
+
+//     }
+//   },
+// });
 
 class home extends Component {
   state = {
@@ -36,8 +58,9 @@ class home extends Component {
       });
     }
   };
-
+  
   render() {
+    const { classes } = this.props;
     const { questions, loading } = this.props.data;
     const { showAnswered, showUnanswered } = this.state;
 
@@ -69,17 +92,28 @@ class home extends Component {
       <Grid container spacing={16}>
         <Grid item sm={8} xs={12}>
           <div>
-            <div className='inlineB'>
-              <Button tip="Questions you've not voted in" onClick={() => this.handleView("unanswered")} fullWidth>
+            <div className="inlineB">
+              <Button
+                tip="Questions you've not voted in"
+                onClick={() => this.handleView("unanswered") }
+                fullWidth
+                style={{ fontWeight: 900 , color: `${showUnanswered ? "darkGrey" : "grey"}`}}
+                // className={classes.buttonRoot}
+              >
                 Unanswered Questions
               </Button>
-              <Button tip="Questions you've voted in" onClick={() => this.handleView("answered")} fullWidth>
+              <Button
+                tip="Questions you've voted in"
+                onClick={() => this.handleView("answered")}
+                fullWidth
+                style={{ fontWeight: 900 , color: `${showAnswered ? "darkGrey" : "grey"}`}}
+                // className={classes.buttonRoot}
+            
+              >
                 Answered Questions
               </Button>
             </div>
-            <>
-                {recentQuestionsMarkup}
-            </>
+            <>{recentQuestionsMarkup}</>
           </div>
         </Grid>
         <Grid item sm={4} xs={12}>
@@ -104,3 +138,7 @@ export default connect(
   mapStateToProps,
   { getQuestions }
 )(home);
+// export default connect(
+//   mapStateToProps,
+//   { getQuestions }
+// )(withStyles(styles)(home));

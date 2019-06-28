@@ -32,9 +32,9 @@ import { getQuestion, clearErrors } from "../../redux/actions/dataActions";
 const styles = theme => ({
   ...theme,
   profileImage: {
-    maxWidth: 200,
-    height: 200,
-    borderRadius: "50%",
+    width: "100%",
+    height: "100%",
+    textAlign: "center",
     objectFit: "cover"
   },
   dialogContent: {
@@ -54,9 +54,6 @@ const styles = theme => ({
     marginBottom: 50
   },
   bloc: {
-    // display: "block",
-    // width: "100%",
-    // maxWidth: "100%",
     padding: "1.5em"
   },
   root: {
@@ -162,22 +159,55 @@ class QuestionDialog extends Component {
             color="primary"
             variant="h5"
             to={`/users/${question.authorId}`}
+            style={{ fontWeight: 900, fontSize: "1em" }}
           >
             {" "}
             @{question.author} asks:
           </Typography>
           <hr className={classes.visibleSeparator} />
         </Grid>
-        <Grid container spacing={16}>
+        <Grid
+          container
+          spacing={16}
+          style={{
+            alignItems: "center",
+            width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            "box-sizing": "border-box"
+          }}
+        >
           <Grid item sm={5}>
-            <img
-              src={question.authorImg}
-              alt="Profile"
-              className={classes.profileImage}
-            />
+            <div
+              style={{
+                width: "180px",
+                height: "180px",
+                borderRadius: "50%",
+                overflow: "hidden"
+              }}
+            >
+              <Avatar
+                src={question.authorImg}
+                alt="Profile"
+                className={classes.profileImage}
+              />
+            </div>
           </Grid>
-          <Grid item sm={7}>
-            <Typography variant="h6">Would You Rather...</Typography>
+          <Grid
+            item
+            sm={7}
+            style={{
+              display: "inline-block",
+              "box-sizing": "border-box"
+            }}
+          >
+            <Typography
+              variant="h6"
+              style={{ fontWeight: 900, fontSize: "1em" }}
+            >
+              Would You Rather ...
+            </Typography>
             <hr className={classes.invisibleSeparator} />
             <div>
               <VoteForm question={question} />
@@ -195,22 +225,43 @@ class QuestionDialog extends Component {
               color="primary"
               variant="h5"
               to={`/users/${question.authorId}`}
+              style={{fontWeight: 900, fontSize: '1em'}}
             >
               {" "}
               Asked by @{question.author}
             </Typography>
             <hr className={classes.visibleSeparator} />
           </Grid>
-          <Grid container spacing={16}>
+          <Grid
+            container
+            spacing={16}
+            style={{
+              alignItems: "center",
+              width: "100%",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              "box-sizing": "border-box"
+            }}
+          >
             <Grid item sm={5}>
-              <img
-                src={question.authorImg}
-                alt="Profile"
-                className={classes.profileImage}
-              />
+              <div
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  borderRadius: "50%",
+                  overflow: "hidden"
+                }}
+              >
+                <Avatar
+                  src={question.authorImg}
+                  alt="Profile"
+                  className={classes.profileImage}
+                />
+              </div>
             </Grid>
-            <Grid item sm={7}>
-              <Typography variant="h6">Results:</Typography>
+            <Grid item sm={7} >
+              <Typography variant="h6" style={{fontWeight: 900, fontSize: '1em'}}>Results:</Typography>
               <hr className={classes.invisibleSeparator} />
               <div>
                 <ResultPoll

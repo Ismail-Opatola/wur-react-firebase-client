@@ -61,18 +61,19 @@ class voteForm extends Component {
 
     const voteFormMarkup = (
       // authenticated ?
-      <Grid item sm={12} style={{ textAlign: "center" }}>
+      <Grid item sm={12} >
         <FormControl
           component="fieldset"
           error={errors.error || errors.message ? true : false}
           value={this.state.option}
-        >
+                  >
           <RadioGroup
             aria-label="position"
             name="position"
             value={this.state.option}
             onChange={this.handleChange}
-            row
+            column
+            
           >
             <FormControlLabel
               value={"optionOne"}
@@ -94,6 +95,7 @@ class voteForm extends Component {
             className={classes.button}
             fullWidth
             onClick={this.handleSubmit}
+            
           >
             Submit
           </Button>

@@ -52,7 +52,7 @@ export default function(state = initialState, action) {
         ...state,
         credentials: {
           ...state.credentials,
-          votes: state.credentials.votes.concat(action.payload.questionId),
+          votes: state.credentials.votes.concat(action.payload),
           score: state.credentials.score + 1
         }
       };

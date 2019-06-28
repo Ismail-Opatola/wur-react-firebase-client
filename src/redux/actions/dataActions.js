@@ -89,6 +89,25 @@ export const postVote = (questionId, vote) => dispatch => {
     });
 };
 
+export const postQuestion = (newQuestion) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/question', newQuestion)
+    .then((res) => {
+      dispatch({
+        type: POST_QUESTION,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 export const clearErrors = () => dispatch => {
   dispatch({ type: CLEAR_ERRORS });
 };

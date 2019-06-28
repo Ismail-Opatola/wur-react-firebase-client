@@ -43,9 +43,6 @@ class voteForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // let option;
-    // if (this.state.optionOne) option = "optionOne";
-    // if (this.state.optionTwo) option = "optionTwo";
     console.log("hey I'm gonna ran your code");
 
     if (!this.state.option) return null;
@@ -59,14 +56,16 @@ class voteForm extends Component {
     const { classes, authenticated, question } = this.props;
     const errors = this.state.errors;
 
-    const voteFormMarkup = (
-      // authenticated ?
-      <Grid item sm={12} >
+    const voteFormMarkup = 
+    // authenticated ? 
+    (
+      <Grid item sm={12}>
         <FormControl
           component="fieldset"
           error={errors.error || errors.message ? true : false}
           value={this.state.option}
-                  >
+          fullWidth
+        >
           <RadioGroup
             aria-label="position"
             name="position"
@@ -92,9 +91,8 @@ class voteForm extends Component {
             variant="contained"
             color="primary"
             className={classes.button}
-            fullWidth
             onClick={this.handleSubmit}
-            
+            fullWidth
           >
             Submit
           </Button>
@@ -111,8 +109,8 @@ class voteForm extends Component {
           </small>
         </div>
       </Grid>
-    );
-    // : null;
+    ); 
+    // : alert(" 😊 You need to signin fam!");
     return voteFormMarkup;
   }
 }
@@ -120,14 +118,14 @@ class voteForm extends Component {
 voteForm.propTypes = {
   postVote: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
   // questionId: PropTypes.string.isRequired,
   // authenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   UI: state.UI,
-  authenticated: state.user.authenticated
+  // authenticated: state.user.authenticated
 });
 
 export default connect(

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
-// import DeleteScream from './DeleteScream';
+import DeleteQuestion from './deleteQuestion';
 import QuestionDialog from "./questionDialog";
 // import LikeButton from './LikeButton';
 // MUI Stuff
@@ -33,7 +33,7 @@ const styles = {
   },
   content: {
     padding: 25,
-    objectFit: "cover", // ask stack, prevent img stretch,    
+    objectFit: "cover" // ask stack, prevent img stretch,
   },
   ellipsis: {
     fontWeight: 500,
@@ -66,8 +66,7 @@ class question extends Component {
 
     const deleteButton =
       authenticated && authorId === userId ? (
-        // TODO: <DeleteQuestion questionId={questionId} />
-        <div>"DEL"</div>
+        <DeleteQuestion questionId={questionId} />
       ) : null;
     return (
       <Card className={classes.card}>
@@ -93,10 +92,7 @@ class question extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
 
-          <Typography
-            variant="body1"
-            className={classes.ellipsis}
-          >
+          <Typography variant="body1" className={classes.ellipsis}>
             Would you rather {optionOne.text} or {optionTwo.text}
           </Typography>
 

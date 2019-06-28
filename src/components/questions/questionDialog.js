@@ -175,7 +175,7 @@ class QuestionDialog extends Component {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
-            "box-sizing": "border-box"
+            boxSizing: "border-box"
           }}
         >
           <Grid item sm={5}>
@@ -199,7 +199,7 @@ class QuestionDialog extends Component {
             sm={7}
             style={{
               display: "inline-block",
-              "box-sizing": "border-box"
+              boxSizing: "border-box"
             }}
           >
             <Typography
@@ -241,7 +241,7 @@ class QuestionDialog extends Component {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              "box-sizing": "border-box"
+              boxSizing: "border-box"
             }}
           >
             <Grid item sm={5}>

@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
-// import Profile from '../components/profile/Profile';
+import Profile from '../components/profile/Profile';
 // import ScreamSkeleton from '../util/ScreamSkeleton';
 
 // import MyButton from "../util/MyButton";
@@ -117,7 +117,7 @@ class home extends Component {
           </div>
         </Grid>
         <Grid item sm={4} xs={12}>
-          {/* <Profile /> */}
+          <Profile />
           <div>'Profile Here'</div>
         </Grid>
       </Grid>

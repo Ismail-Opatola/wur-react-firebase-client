@@ -81,6 +81,17 @@ export const signupUser = (newUserData, history) => dispatch => {
     });
 };
 
+// @ profile picture upload
+export const uploadImage = (formData) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user/image', formData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => console.log(err));
+};
+
 // @ loginout session user
 // TODO: REQ LOGOUT
 export const logoutUser = () => dispatch => {

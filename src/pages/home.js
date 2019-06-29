@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
-import Profile from '../components/profile/Profile';
+import Profile from "../components/profile/Profile";
 // import ScreamSkeleton from '../util/ScreamSkeleton';
 
 // import MyButton from "../util/MyButton";
@@ -58,7 +58,7 @@ class home extends Component {
       });
     }
   };
-  
+
   render() {
     const { classes } = this.props;
     const { questions, loading } = this.props.data;
@@ -95,9 +95,12 @@ class home extends Component {
             <div className="inlineB">
               <Button
                 tip="Questions you've not voted in"
-                onClick={() => this.handleView("unanswered") }
+                onClick={() => this.handleView("unanswered")}
                 fullWidth
-                style={{ fontWeight: 900 , color: `${showUnanswered ? "darkGrey" : "grey"}`}}
+                style={{
+                  fontWeight: 900,
+                  color: `${showUnanswered ? "darkGrey" : "grey"}`
+                }}
                 // className={classes.buttonRoot}
               >
                 Unanswered Questions
@@ -106,9 +109,11 @@ class home extends Component {
                 tip="Questions you've voted in"
                 onClick={() => this.handleView("answered")}
                 fullWidth
-                style={{ fontWeight: 900 , color: `${showAnswered ? "darkGrey" : "grey"}`}}
+                style={{
+                  fontWeight: 900,
+                  color: `${showAnswered ? "darkGrey" : "grey"}`
+                }}
                 // className={classes.buttonRoot}
-            
               >
                 Answered Questions
               </Button>
@@ -117,8 +122,10 @@ class home extends Component {
           </div>
         </Grid>
         <Grid item sm={4} xs={12}>
+          <div className="inlineB">
+            <span>" "</span>
+          </div>
           <Profile />
-          <div>'Profile Here'</div>
         </Grid>
       </Grid>
     );

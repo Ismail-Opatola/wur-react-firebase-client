@@ -92,6 +92,17 @@ export const uploadImage = (formData) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+// @ post user edited profile details
+export const editUserDetails = (userDetails) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user', userDetails)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => console.log(err));
+};
+
 // @ loginout session user
 // TODO: REQ LOGOUT
 export const logoutUser = () => dispatch => {

@@ -44,6 +44,7 @@ if (token) {
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common["Authorization"] = token;
+    // axios.defaults.headers.common["Access-Control-Allow-Origin"] =  "*";
     store.dispatch(getUserData());
   }
 }

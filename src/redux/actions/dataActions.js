@@ -2,6 +2,7 @@ import {
   LOADING_DATA,
   SET_QUESTIONS,
   SET_QUESTION,
+  SET_SINGLE_USER_QUESTIONS,
   POST_VOTE,
   POST_QUESTION,
   DELETE_QUESTION,
@@ -34,7 +35,6 @@ export const getQuestions = () => dispatch => {
 
 export const getQuestion = questionId => dispatch => {
   dispatch({ type: LOADING_UI });
-  console.log("run getQuestion");
   axios
     .get(`/question/${questionId}`)
     .then(res => {
@@ -42,22 +42,22 @@ export const getQuestion = questionId => dispatch => {
         type: SET_QUESTION,
         payload: res.data
       });
-      console.log("just ran getQuestion");
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => console.log(err));
 };
 
-export const deleteQuestion = questionId => dispatch => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .delete(`/question/${questionId}`)
-    .then(res => {
-      console.log({ "deleted from server": res.data });
-      dispatch({ type: DELETE_QUESTION, payload: questionId });
-      dispatch({ type: STOP_LOADING_UI });
-    })
-    .catch(err => console.log(err));
+export const deleteQuestion =  questionId => async dispatch => {
+  try {
+    dispatch({ type: LOADING_UI });
+    dispatch({ type: DELETE_QUESTION, payload: questionId });
+    await axios.delete(`/question/${questionId}`);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // dispatch({ type: DELETE_QUESTION, payload: questionId });
+    dispatch({ type: STOP_LOADING_UI });
+  }
 };
 
 export const postVote = (questionId, vote) => dispatch => {
@@ -66,16 +66,16 @@ export const postVote = (questionId, vote) => dispatch => {
     .then(res => {
       dispatch({
         type: SET_ERRORS,
-        payload: res.data
+        payload: { message: "captured successsfully" }
       });
-    })
-    .then(() => {
       dispatch({
         type: POST_VOTE,
-        payload: questionId
+        payload: res.data
       });
-      console.log("calling getQuestion from postVote");
-      return getQuestion(questionId);
+      dispatch({
+        type: SET_QUESTION,
+        payload: res.data
+      });
     })
     .then(() => {
       dispatch(clearErrors());
@@ -89,21 +89,40 @@ export const postVote = (questionId, vote) => dispatch => {
     });
 };
 
-export const postQuestion = (newQuestion) => (dispatch) => {
+export const postQuestion = newQuestion => dispatch => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/question', newQuestion)
-    .then((res) => {
+    .post("/question", newQuestion)
+    .then(res => {
       dispatch({
         type: POST_QUESTION,
         payload: res.data
       });
       dispatch(clearErrors());
     })
-    .catch((err) => {
+    .catch(err => {
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data
+      });
+    });
+};
+
+// @ fetch other user questions
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`) // returns profile data + questions data
+    .then(res => {
+      dispatch({
+        type: SET_SINGLE_USER_QUESTIONS,
+        payload: res.data.questions
+      }); // set only questions data
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_SINGLE_USER_QUESTIONS,
+        payload: null
       });
     });
 };

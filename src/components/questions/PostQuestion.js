@@ -124,7 +124,7 @@ class PostQuestion extends Component {
                 color: "grey"
               }}
             >
-              <p>Complete the question:</p>
+              Complete the question:
             </Typography>
             <Typography
               //   color="primary"

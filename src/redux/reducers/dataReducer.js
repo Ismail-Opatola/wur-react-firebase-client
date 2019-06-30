@@ -1,5 +1,6 @@
 import {
   SET_QUESTIONS,
+  SET_SINGLE_USER_QUESTIONS,
   SET_QUESTION,
   POST_QUESTION,
   LOADING_DATA,
@@ -183,21 +184,29 @@ export default function(state = initialState, action) {
         questions: { ...state.questions, ...action.payload },
         loading: false
       };
+    case SET_SINGLE_USER_QUESTIONS:
+      return {
+        ...state,
+        questions: {
+          answered: [],
+          unanswered: action.payload
+        },
+        loading: false
+      };
     case SET_QUESTION:
       return {
         ...state,
-        question: { ...action.payload }
+        question: action.payload 
       };
     case POST_VOTE:
-
       let newUnanswered = state.questions.unanswered.filter(
-        question => question.questionId === action.payload
+        question => question.questionId !== action.payload.questionId // change this to action.payload.questionId
       );
 
       return {
         ...state,
         questions: {
-          ...state.questions,
+          answred: state.questions.answered.concat(action.payload), //action.payload
           unanswered: newUnanswered
         }
       };
@@ -211,9 +220,12 @@ export default function(state = initialState, action) {
       index2 = state.questions.answered.findIndex(
         question => question.questionId === action.payload
       );
+
       if (index1 !== -1) {
         state.questions.unanswered.splice(index1, 1);
-      } else if (index2 !== -1) {
+      } 
+      
+      if (index2 !== -1) {
         state.questions.answered.splice(index2, 1);
       }
 
@@ -229,7 +241,7 @@ export default function(state = initialState, action) {
         ...state,
         questions: {
           ...state.questions,
-          unanswered: [...state.questions.unanswered, action.payload]
+          unanswered: [action.payload, ...state.questions.unanswered]
         }
       };
 

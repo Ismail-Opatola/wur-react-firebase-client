@@ -12,6 +12,7 @@ export const LOADING_DATA = 'LOADING_DATA';
 export const STOP_LOADING_UI = 'STOP_LOADING_UI';
 // Data reducer types
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const SET_SINGLE_USER_QUESTIONS = 'SET_SINGLE_USER_QUESTIONS';
 export const SET_QUESTION = 'SET_QUESTION';
 export const POST_VOTE = 'POST_VOTE';
 export const POST_QUESTION = 'POST_QUESTION';

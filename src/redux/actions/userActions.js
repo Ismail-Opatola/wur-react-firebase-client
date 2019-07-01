@@ -104,6 +104,18 @@ export const editUserDetails = (userDetails) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+// @ mark read notifications
+export const markNotificationsRead = (notificationIds) => (dispatch) => {
+  axios
+    .post('/notifications', notificationIds)
+    .then((res) => {
+      dispatch({
+        type: MARK_NOTIFICATIONS_READ
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 // @ loginout session user
 // TODO: REQ LOGOUT
 export const logoutUser = () => dispatch => {

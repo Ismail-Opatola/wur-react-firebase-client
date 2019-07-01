@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // components
 import MyButton from "../../util/MyButton";
 import PostQuestion from "../questions/PostQuestion";
-// import Notifications from "./Notifications";
+import Notifications from "./Notifications";
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -36,8 +36,7 @@ class Navbar extends Component {
                   <AssessmentIcon />
                 </MyButton>
               </Link>
-              {/* <Notifications /> */}
-              <div>Notifications</div>
+              <Notifications />
             </Fragment>
           ) : (
             <Fragment>

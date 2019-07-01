@@ -70,7 +70,8 @@ class QuestionDialog extends Component {
   state = {
     open: false,
     oldPath: "",
-    newPath: ""
+    newPath: "",
+    questionState: this.props.questioN
   };
   componentDidMount() {
     // #34--1 access a particular user scream through route
@@ -80,13 +81,18 @@ class QuestionDialog extends Component {
       this.handleOpen();
     }
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.questioN) {
+      this.setState({ questionState: nextProps.questioN });
+    }
+  }
 
   handleOpen = () => {
     // #34--2 twitter dialog and route behavoir ... when user>>screamId is accessed from <url> directly, load screamDialog, save the previuos path, create a newPath for the opened scream and set url history to newPath, on handleClose reset url history to oldPath.
     //  Note: Edge case: if the oldPath is same as the newPath, set oldPath to the accessed user page
     let oldPath = window.location.pathname;
 
-    const { authorId, questionId } = this.props; // #34--2
+    const { authorId, questionId, questioN } = this.props; // #34--2
     // form the path for the scream
     const newPath = `/users/${authorId}/question/${questionId}`; // #34--2
 
@@ -96,21 +102,17 @@ class QuestionDialog extends Component {
     // push newPath
     window.history.pushState(null, null, newPath); // (null, null, <url>)
 
-    this.setState({ open: true, oldPath, newPath });
+    this.setState({ open: true, oldPath, newPath, questionState: questioN });
     this.props.getQuestion(this.props.questionId);
   };
   handleClose = () => {
     // go back to the user's page ie push oldPath
     window.history.pushState(null, null, this.state.oldPath);
-    this.setState({ open: false, votersAvi: [] });
+    this.setState({ open: false, questionState: {} });
     this.props.clearErrors();
   };
 
   mapPhotoListToState = (votersPhotoList, classes) => {
-    // const {
-    //   questioN: { votersPhotoList },
-    //   classes
-    // } = this.props;
     let photoChips =
       votersPhotoList.length &&
       votersPhotoList.map(data => {
@@ -133,15 +135,17 @@ class QuestionDialog extends Component {
   render() {
     const {
       classes,
-      questioN: {
+      UI: { loading }
+    } = this.props;
+    const {
+      questionState: {
         question,
         votersPercentage,
         votersPhotoList,
         votersRatio,
         yourVote
-      },
-      UI: { loading }
-    } = this.props;
+      }
+    } = this.state;
 
     const votersAvi =
       !loading && this.mapPhotoListToState(votersPhotoList, classes);
@@ -225,7 +229,7 @@ class QuestionDialog extends Component {
               color="primary"
               variant="h5"
               to={`/users/${question.authorId}`}
-              style={{fontWeight: 900, fontSize: '1em'}}
+              style={{ fontWeight: 900, fontSize: "1em" }}
             >
               {" "}
               Asked by @{question.author}
@@ -260,8 +264,13 @@ class QuestionDialog extends Component {
                 />
               </div>
             </Grid>
-            <Grid item sm={7} >
-              <Typography variant="h6" style={{fontWeight: 900, fontSize: '1em'}}>Results:</Typography>
+            <Grid item sm={7}>
+              <Typography
+                variant="h6"
+                style={{ fontWeight: 900, fontSize: "1em" }}
+              >
+                Results:
+              </Typography>
               <hr className={classes.invisibleSeparator} />
               <div>
                 <ResultPoll
@@ -329,7 +338,7 @@ QuestionDialog.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  questioN: state.data.question.question ? state.data.question : null,
+  questioN: state.data.question,
   UI: state.UI
 });
 

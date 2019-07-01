@@ -7,7 +7,7 @@ const horizontalProgress = ({ percentage }) => {
     return (
       <div
         className="progress horizontal"
-        style={{ textAlign: `center`, fontWeight: "bold", padding: "0.1em" }}
+        style={{ textAlign: `center`, fontWeight: "bold", padding: "0.1em" , color: "#666"}}
       >
         <span className="sr-only">{`${percentage}`}</span>
       </div>

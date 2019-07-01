@@ -1,3 +1,5 @@
+import noImg from "../../images/no-img.png";
+
 import {
   SET_QUESTIONS,
   SET_SINGLE_USER_QUESTIONS,
@@ -5,7 +7,8 @@ import {
   POST_QUESTION,
   LOADING_DATA,
   DELETE_QUESTION,
-  POST_VOTE
+  POST_VOTE,
+  SET_LEADERBOARD
 } from "../action-types";
 
 const initialState = {
@@ -17,8 +20,7 @@ const initialState = {
           text: "Deontay Wilder",
           votes: ["zJHC3D4MMiQFSpnUczv2gU8AYKC3"]
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "ZLzRMiTiAYYm4x9Vcc87",
         createdAt: "2019-06-24T07:17:48.744Z",
         optionOne: {
@@ -29,8 +31,7 @@ const initialState = {
         authorId: "bf0Xsc5TAQYtwRkPGSk6E56BxvY2"
       },
       {
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "xpsgQsNwhuh4k0lUNCkN",
         createdAt: "2019-06-24T07:17:13.455Z",
         optionOne: {
@@ -55,8 +56,7 @@ const initialState = {
           text: "Power",
           votes: []
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "hu4lSOEht63uKzZSNAft",
         createdAt: "2019-06-24T07:14:42.885Z"
       },
@@ -67,8 +67,7 @@ const initialState = {
           text: "Modzilla Firefox",
           votes: ["bf0Xsc5TAQYtwRkPGSk6E56BxvY2"]
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "t6kzipMmsruB1hl4ZO2e",
         createdAt: "2019-06-24T07:08:56.831Z",
         optionOne: {
@@ -87,14 +86,12 @@ const initialState = {
           text: "ESA",
           votes: []
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "evnsIHZe4HkAVqzyYWxN",
         createdAt: "2019-06-24T07:07:47.500Z"
       },
       {
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "3LcqgN46swOhqMoYv2nH",
         createdAt: "2019-06-24T07:06:25.752Z",
         optionOne: {
@@ -116,8 +113,7 @@ const initialState = {
             "zJHC3D4MMiQFSpnUczv2gU8AYKC3"
           ]
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "frX6c4u24J2XBMhROBY8",
         createdAt: "2019-06-24T07:04:02.126Z",
         optionOne: {
@@ -138,14 +134,12 @@ const initialState = {
           text: "Drunken Master",
           votes: []
         },
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "mwcHIdwwnLWTsUA6UxWV",
         createdAt: "2019-06-24T07:00:11.930Z"
       },
       {
-        authorImg:
-          "https://firebasestorage.googleapis.com/v0/b/would-you-rather-app-c5895.appspot.com/o/no-img.png?alt=media",
+        authorImg: noImg,
         questionId: "Rj6kT5sutKTY95gTRep3",
         createdAt: "2019-06-24T06:59:03.392Z",
         optionOne: {
@@ -168,6 +162,44 @@ const initialState = {
     votersRatio: {},
     yourVote: {}
   },
+  leaderboard: [
+    {
+      userId: "zJHC3D4MMiQFSpnUczv2gU8AYKC3",
+      username: "kan Humi",
+      imageUrl: noImg,
+      created: 4,
+      answered: 7,
+      score: 11,
+      position: 0
+    },
+    {
+      userId: "8dwgRiiX0EQj0PcSO99ZSgJ8tRo1",
+      username: "vito ranold",
+      imageUrl: noImg,
+      created: 3,
+      answered: 7,
+      score: 10,
+      position: 1
+    },
+    {
+      userId: "bf0Xsc5TAQYtwRkPGSk6E56BxvY2",
+      username: "mark tyson",
+      imageUrl: noImg,
+      created: 3,
+      answered: 3,
+      score: 6,
+      position: 2
+    },
+    {
+      userId: "hYWgcR3FEea76lA5CQ5ajS66XZw2",
+      username: "Charles Monte",
+      imageUrl: noImg,
+      created: 1,
+      answered: 1,
+      score: 2,
+      position: 3
+    }
+  ],
   loading: false
 };
 
@@ -196,7 +228,12 @@ export default function(state = initialState, action) {
     case SET_QUESTION:
       return {
         ...state,
-        question: action.payload 
+        question: action.payload
+      };
+    case SET_LEADERBOARD:
+      return {
+        ...state,
+        leaderboard: action.payload
       };
     case POST_VOTE:
       let newUnanswered = state.questions.unanswered.filter(
@@ -223,8 +260,8 @@ export default function(state = initialState, action) {
 
       if (index1 !== -1) {
         state.questions.unanswered.splice(index1, 1);
-      } 
-      
+      }
+
       if (index2 !== -1) {
         state.questions.answered.splice(index2, 1);
       }

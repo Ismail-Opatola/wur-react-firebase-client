@@ -9,7 +9,8 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   STOP_LOADING_UI,
-  LOADING_UI
+  LOADING_UI,
+  SET_LEADERBOARD
 } from "../action-types";
 import axios from "axios";
 
@@ -47,7 +48,7 @@ export const getQuestion = questionId => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const deleteQuestion =  questionId => async dispatch => {
+export const deleteQuestion = questionId => async dispatch => {
   try {
     dispatch({ type: LOADING_UI });
     dispatch({ type: DELETE_QUESTION, payload: questionId });
@@ -61,6 +62,8 @@ export const deleteQuestion =  questionId => async dispatch => {
 };
 
 export const postVote = (questionId, vote) => dispatch => {
+  dispatch({ type: LOADING_UI });
+
   axios
     .post(`/question/${questionId}`, vote)
     .then(res => {
@@ -72,20 +75,25 @@ export const postVote = (questionId, vote) => dispatch => {
         type: POST_VOTE,
         payload: res.data
       });
+      return axios.get(`/question/${questionId}`);
+    })
+    .then(res => {
       dispatch({
         type: SET_QUESTION,
         payload: res.data
       });
-    })
-    .then(() => {
+      dispatch({ type: STOP_LOADING_UI });
       dispatch(clearErrors());
     })
     .catch(err => {
       console.log(err);
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      if (err.response.data !== "undefined") {
+        dispatch({
+          type: SET_ERRORS,
+          payload: err.response.data
+        });
+      }
+      dispatch({ type: STOP_LOADING_UI });
     });
 };
 
@@ -98,6 +106,7 @@ export const postQuestion = newQuestion => dispatch => {
         type: POST_QUESTION,
         payload: res.data
       });
+      dispatch({ type: STOP_LOADING_UI });
       dispatch(clearErrors());
     })
     .catch(err => {
@@ -105,6 +114,7 @@ export const postQuestion = newQuestion => dispatch => {
         type: SET_ERRORS,
         payload: err.response.data
       });
+      dispatch({ type: STOP_LOADING_UI });
     });
 };
 
@@ -118,12 +128,42 @@ export const getUserData = userHandle => dispatch => {
         type: SET_SINGLE_USER_QUESTIONS,
         payload: res.data.questions
       }); // set only questions data
+      dispatch(clearErrors());
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(() => {
       dispatch({
         type: SET_SINGLE_USER_QUESTIONS,
         payload: null
       });
+      dispatch({ type: STOP_LOADING_UI });
+    });
+};
+
+// fetch leaderboard data
+export const getLeaderBoard = () => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get("/leaderboard")
+    .then(res => {
+      dispatch({
+        type: SET_LEADERBOARD,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => {
+      // dispatch({
+      //   type: SET_LEADERBOARD,
+      //   payload: []
+      // });
+      console.log({ LEADERBORED: err });
+      dispatch({
+        type: SET_ERRORS,
+        payload: { error: "Network Error, Try again!" }
+      });
+      dispatch({ type: STOP_LOADING_UI });
     });
 };
 

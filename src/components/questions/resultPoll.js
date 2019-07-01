@@ -65,7 +65,7 @@ export class resultPoll extends Component {
                   Would you rather {question.optionOne.text}?
                 </Typography>
                 <ProgressBar percentage={votersPercentage.optionOne} />
-                <Typography fontWeight="fontWeightBold" textAlign="center">
+                <Typography fontWeight="fontWeightBold">
                   {votersRatio.optionOne}
                 </Typography>
               </div>
@@ -90,7 +90,7 @@ export class resultPoll extends Component {
                   Would you rather {question.optionTwo.text}?
                 </Typography>
                 <ProgressBar percentage={votersPercentage.optionTwo} />
-                <Typography fontWeight="fontWeightBold" textAlign="center">
+                <Typography fontWeight="fontWeightBold" >
                   {votersRatio.optionTwo}
                 </Typography>
               </div>

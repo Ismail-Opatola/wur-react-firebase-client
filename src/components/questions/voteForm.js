@@ -71,7 +71,7 @@ class voteForm extends Component {
             name="position"
             value={this.state.option}
             onChange={this.handleChange}
-            column
+            column="true"
           >
             <FormControlLabel
               value={"optionOne"}

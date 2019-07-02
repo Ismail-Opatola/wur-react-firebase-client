@@ -5,7 +5,8 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  MARK_NOTIFICATIONS_READ
+  MARK_NOTIFICATIONS_READ,
+  UPDATE_AUTHOR_IMG
 } from "../action-types";
 import axios from "axios";
 
@@ -55,7 +56,7 @@ export const loginUser = (userData, history) => dispatch => {
       history.push("/");
     })
     .catch(err => {
-      console.log('login ERROR:', err);
+      console.log("login ERROR:", err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response
@@ -83,37 +84,48 @@ export const signupUser = (newUserData, history) => dispatch => {
 };
 
 // @ profile picture upload
-export const uploadImage = (formData) => (dispatch) => {
+export const uploadImage = formData => dispatch => {
   dispatch({ type: LOADING_USER });
   axios
-    .post('/user/image', formData)
+    .post("/user/image", formData)
     .then(() => {
-      dispatch(getUserData());
+      // dispatch(getUserData());
+      return axios.get("/user");
     })
-    .catch((err) => console.log(err));
+    .then(res => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+      dispatch({
+        type: UPDATE_AUTHOR_IMG,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 // @ post user edited profile details
-export const editUserDetails = (userDetails) => (dispatch) => {
+export const editUserDetails = userDetails => dispatch => {
   dispatch({ type: LOADING_USER });
   axios
-    .post('/user', userDetails)
+    .post("/user", userDetails)
     .then(() => {
       dispatch(getUserData());
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 };
 
 // @ mark read notifications
-export const markNotificationsRead = (notificationIds) => (dispatch) => {
+export const markNotificationsRead = notificationIds => dispatch => {
   axios
-    .post('/notifications', notificationIds)
-    .then((res) => {
+    .post("/notifications", notificationIds)
+    .then(res => {
       dispatch({
         type: MARK_NOTIFICATIONS_READ
       });
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 };
 
 // @ loginout session user

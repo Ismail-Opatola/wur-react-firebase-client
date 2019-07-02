@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
+
 // MUI Stuff
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-// Redux stuff
-import { connect } from "react-redux";
-import { postVote } from "../../redux/actions/dataActions";
-
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-// import question from "./question";
-// import FormLabel from '@material-ui/core/FormLabel';
 
-// import Emoji from "../../util/emoji";
+// Redux stuff
+import { connect } from "react-redux";
+import { postVote } from "../../redux/actions/dataActions";
+
 
 const styles = theme => ({
   ...theme

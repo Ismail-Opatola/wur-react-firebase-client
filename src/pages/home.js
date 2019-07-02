@@ -1,38 +1,16 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-// import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
 import Profile from "../components/profile/Profile";
 // import ScreamSkeleton from '../util/ScreamSkeleton';
 
-// import MyButton from "../util/MyButton";
 import Button from "@material-ui/core/Button";
 
 import { connect } from "react-redux";
 import { getQuestions } from "../redux/actions/dataActions";
 
-// const styles = theme => ({
-
-//   buttonRoot: {
-//     "&":{ fontWeight: 900 , color: "grey"},
-//     "&:hover": {
-//       color: "darkGrey",
-//       opacity: 1
-//     },
-//     "&:focus": {
-//       color: "darkGrey",
-//       opacity: 0.8
-
-//     },
-//     "&:active": {
-//       color: "darkGrey",
-//       opacity: 0.8
-
-//     }
-//   },
-// });
 
 class home extends Component {
   state = {
@@ -101,7 +79,6 @@ class home extends Component {
                   fontWeight: 900,
                   color: `${showUnanswered ? "darkGrey" : "grey"}`
                 }}
-                // className={classes.buttonRoot}
               >
                 Unanswered Questions
               </Button>
@@ -113,7 +90,6 @@ class home extends Component {
                   fontWeight: 900,
                   color: `${showAnswered ? "darkGrey" : "grey"}`
                 }}
-                // className={classes.buttonRoot}
               >
                 Answered Questions
               </Button>
@@ -145,7 +121,4 @@ export default connect(
   mapStateToProps,
   { getQuestions }
 )(home);
-// export default connect(
-//   mapStateToProps,
-//   { getQuestions }
-// )(withStyles(styles)(home));
+

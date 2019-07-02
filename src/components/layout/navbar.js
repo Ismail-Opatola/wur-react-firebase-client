@@ -7,14 +7,15 @@ import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
 import PostQuestion from "../questions/PostQuestion";
 import Notifications from "./Notifications";
+
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
+
 // Icons
 import HomeIcon from "@material-ui/icons/Home";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-// import boardIcon from '../../images/leaderbaord.png'
 
 class Navbar extends Component {
   render() {

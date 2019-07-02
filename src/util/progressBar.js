@@ -24,7 +24,6 @@ const horizontalProgress = ({ percentage }) => {
         <div className="progress horizontal">
           <div style={{ width: `${percent}%` }} className="progress-bar">
             <span className="sr-only">{`${number.toFixed()}%`}</span>
-            {/* <span className="sr-only">{`${Math.round(number)}%`}</span> */}
           </div>
         </div>
       )}

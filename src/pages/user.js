@@ -32,21 +32,22 @@ class user extends Component {
       })
       .catch((err) => console.log(err));
   }
+  
   render() {
-    const { questions, loading } = this.props.data;
+    const { singleUserQuestions, loading } = this.props;
     const { questionIdParam } = this.state; // #34
 
     const questionsMarkup = loading ? (
     //   <QuestionSkeleton />
     <div>"HAHAHA! The Skeleton laughs heartily"</div>
-    ) : questions === null ? (
-      <p>No questions from this user</p>
+    ) : singleUserQuestions === null ? (
+      <p>No questions yet from this user</p>
     ) : !questionIdParam ? ( 
     // #34 if no <Route path="/users/:userId/question/:questionId" but only <Route path="/users/:userId />
-      questions.unanswered.map((question) => <Question key={question.questionId} question={question} />)
+      singleUserQuestions.map((question) => <Question key={question.questionId} question={question} />)
     ) : ( 
     // #34 if <Route path="/users/:userId/question/:questionId"
-      questions.unanswered.map((question) => { // find question by questionIdParam
+      singleUserQuestions.map((question) => { // find question by questionIdParam
         if (question.questionId !== questionIdParam)
           return <Question key={question.questionId} question={question} />;
         else return <Question key={question.questionId} question={question} openDialog />; 
@@ -74,11 +75,12 @@ class user extends Component {
 
 user.propTypes = {
   getUserData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  singleUserQuestions: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  data: state.data // contains all the questions of the user
+  singleUserQuestions: state.data.singleUserQuestions,
+  loading: state.data.loading
 });
 
 export default connect(

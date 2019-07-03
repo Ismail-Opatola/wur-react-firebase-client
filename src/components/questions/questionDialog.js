@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import compose from "recompose/compose";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import VoteForm from "./voteForm";
@@ -210,7 +211,7 @@ class QuestionDialog extends Component {
             </Typography>
             <hr className={classes.invisibleSeparator} />
             <div>
-              <VoteForm question={question} />
+              <VoteForm question={question} oldPath={this.state.oldPath}/>
             </div>
           </Grid>
         </Grid>
@@ -343,7 +344,10 @@ const mapActionsToProps = {
   clearErrors
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(QuestionDialog));
+export default compose(
+  withStyles(styles, { name: "QuestionDialog" }),
+  connect(
+    mapStateToProps,
+    mapActionsToProps
+  )
+)(withRouter(QuestionDialog));

@@ -10,7 +10,8 @@ import {
   CLEAR_ERRORS,
   STOP_LOADING_UI,
   LOADING_UI,
-  SET_LEADERBOARD
+  SET_LEADERBOARD,
+  POST_VOTE_FROM_USER_PAGE
 } from "../action-types";
 import axios from "axios";
 
@@ -76,6 +77,42 @@ export const postVote = (questionId, vote) => dispatch => {
         payload: res.data
       });
       return axios.get(`/question/${questionId}`);
+    })
+    .then(res => {
+      dispatch({
+        type: SET_QUESTION,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING_UI });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      console.log(err);
+      if (err.response.data !== "undefined") {
+        dispatch({
+          type: SET_ERRORS,
+          payload: err.response.data
+        });
+      }
+      dispatch({ type: STOP_LOADING_UI });
+    });
+};
+export const postVoteFromUserPage = (questionId, vote) => dispatch => {
+  dispatch({ type: LOADING_UI });
+
+  axios
+    .post(`/question/${questionId}`, vote)
+    .then(res => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: { message: "captured successsfully" }
+      });
+      dispatch({
+        type: POST_VOTE_FROM_USER_PAGE,
+        payload: res.data
+      });
+      return axios.get(`/question/${questionId}`); 
+      // @returns more data for a single question 
     })
     .then(res => {
       dispatch({

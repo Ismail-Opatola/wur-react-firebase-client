@@ -12,8 +12,10 @@ import Radio from "@material-ui/core/Radio";
 
 // Redux stuff
 import { connect } from "react-redux";
-import { postVote } from "../../redux/actions/dataActions";
-
+import {
+  postVote,
+  postVoteFromUserPage
+} from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme
@@ -42,10 +44,23 @@ class voteForm extends Component {
     e.preventDefault();
     console.log("hey I'm gonna ran your code");
 
-    if (!this.state.option) return null;
-    this.props.postVote(this.props.question.questionId, {
-      vote: this.state.option
-    });
+    if (!this.state.option)
+      return this.setState({ errors: { error: "Yet pick an option fam!" } });
+
+    const {
+      oldPath,
+      question: { authorId, questionId }
+    } = this.props;
+
+    if (oldPath === `/users/${authorId}`) {
+      this.props.postVoteFromUserPage(questionId, {
+        vote: this.state.option
+      });
+    } else {
+      this.props.postVote(questionId, {
+        vote: this.state.option
+      });
+    }
     console.log("hey I ran your code");
   };
 
@@ -53,9 +68,8 @@ class voteForm extends Component {
     const { classes, authenticated, question } = this.props;
     const errors = this.state.errors;
 
-    const voteFormMarkup = 
-    // authenticated ? 
-    (
+    const voteFormMarkup = (
+      // authenticated ?
       <Grid item sm={12}>
         <FormControl
           component="fieldset"
@@ -106,7 +120,7 @@ class voteForm extends Component {
           </small>
         </div>
       </Grid>
-    ); 
+    );
     // : alert(" 😊 You need to signin fam!");
     return voteFormMarkup;
   }
@@ -115,17 +129,17 @@ class voteForm extends Component {
 voteForm.propTypes = {
   postVote: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
   // questionId: PropTypes.string.isRequired,
   // authenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  UI: state.UI,
+  UI: state.UI
   // authenticated: state.user.authenticated
 });
 
 export default connect(
   mapStateToProps,
-  { postVote }
+  { postVote, postVoteFromUserPage }
 )(withStyles(styles)(voteForm));

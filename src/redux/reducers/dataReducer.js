@@ -9,6 +9,7 @@ import {
   LOADING_DATA,
   DELETE_QUESTION,
   POST_VOTE,
+  POST_VOTE_FROM_USER_PAGE,
   SET_LEADERBOARD
 } from "../action-types";
 
@@ -17,6 +18,7 @@ const initialState = {
     answered: [],
     unanswered: []
   },
+  singleUserQuestions: [],
   question: {
     question: {},
     votersPercentage: {},
@@ -44,10 +46,7 @@ export default function(state = initialState, action) {
     case SET_SINGLE_USER_QUESTIONS:
       return {
         ...state,
-        questions: {
-          answered: [],
-          unanswered: action.payload
-        },
+        singleUserQuestions: action.payload,
         loading: false
       };
     case SET_QUESTION:
@@ -95,6 +94,22 @@ export default function(state = initialState, action) {
           answered: state.questions.answered.concat(action.payload), //action.payload
           unanswered: newUnanswered
         }
+      };
+    case POST_VOTE_FROM_USER_PAGE:
+      let newUnans = state.questions.unanswered.filter(
+        question => question.questionId !== action.payload.questionId
+      );
+      let questionIndex = state.singleUserQuestions.findIndex(
+        question => question.questionId === action.payload.questionId
+      );
+      state.singleUserQuestions[questionIndex] = action.payload;
+      return {
+        ...state,
+        questions: {
+          answered: state.questions.answered.concat(action.payload), //action.payload
+          unanswered: newUnans
+        },
+        singleUserQuestions: [...state.singleUserQuestions]
       };
     case DELETE_QUESTION:
       // TODO: IF MUTATION, NEST UPDATE

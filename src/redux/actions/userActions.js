@@ -19,7 +19,6 @@ const setAuthorizationHeader = token => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);
   axios.defaults.headers.common["Authorization"] = FBIdToken;
-  // axios.defaults.headers.common["Access-Control-Allow-Origin"] =  "*";
 };
 
 // ============
@@ -89,7 +88,6 @@ export const uploadImage = formData => dispatch => {
   axios
     .post("/user/image", formData)
     .then(() => {
-      // dispatch(getUserData());
       return axios.get("/user");
     })
     .then(res => {
@@ -129,9 +127,15 @@ export const markNotificationsRead = notificationIds => dispatch => {
 };
 
 // @ loginout session user
-// TODO: REQ LOGOUT
 export const logoutUser = () => dispatch => {
-  localStorage.removeItem("FBIdToken");
-  delete axios.defaults.headers.common["Authorization"];
-  dispatch({ type: SET_UNAUTHENTICATED });
+  try {
+    axios.delete("/sessions");
+  // } catch (err){
+  //   console.log(err.response.data)
+  } 
+  finally {
+    localStorage.removeItem("FBIdToken");
+    delete axios.defaults.headers.common["Authorization"];
+    dispatch({ type: SET_UNAUTHENTICATED });
+  }
 };

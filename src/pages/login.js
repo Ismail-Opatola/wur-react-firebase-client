@@ -72,6 +72,7 @@ class login extends Component {
               error={errors.email ? true : false}
               value={this.state.email}
               onChange={this.handleChange}
+              inputProps={{ maxLength: 50 }}
               fullWidth
             />
             <TextField
@@ -84,6 +85,7 @@ class login extends Component {
               error={errors.password ? true : false}
               value={this.state.password}
               onChange={this.handleChange}
+              inputProps={{ maxLength: 50 }}
               fullWidth
             />
             {errors.general && (

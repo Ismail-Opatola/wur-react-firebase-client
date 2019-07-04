@@ -82,6 +82,7 @@ class signup extends Component {
                 error={errors.firstName ? true : false}
                 value={this.state.firstName}
                 onChange={this.handleChange}
+                inputProps={{ maxLength: 12 }}
                 // fullWidth
               />
               <TextField
@@ -94,6 +95,7 @@ class signup extends Component {
                 error={errors.lastName ? true : false}
                 value={this.state.lastName}
                 onChange={this.handleChange}
+                inputProps={{ maxLength: 12 }}
                 // fullWidth
               />
             </div>
@@ -108,6 +110,7 @@ class signup extends Component {
               error={errors.email ? true : false}
               value={this.state.email}
               onChange={this.handleChange}
+              inputProps={{ maxLength: 50 }}
               fullWidth
             />
             <TextField
@@ -120,6 +123,7 @@ class signup extends Component {
               error={errors.password ? true : false}
               value={this.state.password}
               onChange={this.handleChange}
+              inputProps={{ maxLength: 50 }}
               fullWidth
             />
             <TextField
@@ -132,6 +136,7 @@ class signup extends Component {
               error={errors.confirmPassword ? true : false}
               value={this.state.confirmPassword}
               onChange={this.handleChange}
+              inputProps={{ maxLength: 50 }}
               fullWidth
             />
 

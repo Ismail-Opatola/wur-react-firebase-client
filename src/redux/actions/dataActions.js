@@ -10,7 +10,8 @@ import {
   CLEAR_ERRORS,
   STOP_LOADING_UI,
   LOADING_UI,
-  SET_LEADERBOARD
+  SET_LEADERBOARD,
+  STOP_LOADING_DATA
 } from "../action-types";
 import axios from "axios";
 
@@ -129,14 +130,12 @@ export const getUserData = userHandle => dispatch => {
         payload: res.data.questions
       }); // set only questions data
       dispatch(clearErrors());
-      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(() => {
       dispatch({
         type: SET_SINGLE_USER_QUESTIONS,
         payload: null
       });
-      dispatch({ type: STOP_LOADING_UI });
     });
 };
 
@@ -151,7 +150,6 @@ export const getLeaderBoard = () => dispatch => {
         payload: res.data
       });
       dispatch(clearErrors());
-      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
       // dispatch({
@@ -163,7 +161,7 @@ export const getLeaderBoard = () => dispatch => {
         type: SET_ERRORS,
         payload: { error: "Network Error, Try again!" }
       });
-      dispatch({ type: STOP_LOADING_UI });
+      dispatch({ type: STOP_LOADING_DATA });
     });
 };
 

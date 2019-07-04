@@ -68,7 +68,6 @@ class QuestionDialog extends Component {
     open: false,
     oldPath: "",
     newPath: "",
-    // questionState: this.props.questioN
   };
   componentDidMount() {
     // access a particular user question through route
@@ -78,11 +77,7 @@ class QuestionDialog extends Component {
       this.handleOpen();
     }
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.questioN) {
-  //     this.setState({ questionState: nextProps.questioN });
-  //   }
-  // }
+  
 
   handleOpen = () => {
     // twitter dialog and route behavoir ... when user>>questionId is accessed from <url> directly, load questionDialog, save the previuos path, create a newPath for the opened question and set url history to newPath, on handleClose reset url history to oldPath.
@@ -91,7 +86,6 @@ class QuestionDialog extends Component {
     const { 
       authorId, 
       questionId, 
-      // questioN 
     } = this.props; 
     // form the path for the question in view
     const newPath = `/users/${authorId}/question/${questionId}`; 
@@ -106,7 +100,6 @@ class QuestionDialog extends Component {
       open: true, 
       oldPath, 
       newPath, 
-      // questionState: questioN 
     });
     this.props.getQuestion(this.props.questionId);
   };
@@ -115,10 +108,14 @@ class QuestionDialog extends Component {
     window.history.pushState(null, null, this.state.oldPath);
     this.setState({ 
       open: false, 
-      // questionState: {} 
     });
     this.props.clearErrors();
   };
+
+  switchUrl = (voterId) => {
+    this.props.history.push(`/users/${voterId}`)
+    window.location.reload(true);
+  }
 
   mapPhotoListToState = (votersPhotoList, classes) => {
     let photoChips =
@@ -127,10 +124,9 @@ class QuestionDialog extends Component {
         return (
           <Chip
             key={data.voterId}
-            component={Link}
             avatar={<Avatar alt={data.voterName} src={data.voterImageUrl} />}
             label={data.voterName}
-            to={`/users/${data.voterId}`}
+            onClick={() => this.switchUrl(data.voterId)}
             clickable
             className={classes.chip}
             variant="outlined"
@@ -152,15 +148,7 @@ class QuestionDialog extends Component {
       },
       UI: { loading }
     } = this.props;
-    // const {
-    //   questionState: {
-    //     question,
-    //     votersPercentage,
-    //     votersPhotoList,
-    //     votersRatio,
-    //     yourVote
-    //   }
-    // } = this.state;
+
 
     const votersAvi =
       !loading && this.mapPhotoListToState(votersPhotoList, classes);
@@ -346,9 +334,9 @@ class QuestionDialog extends Component {
 QuestionDialog.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   getQuestion: PropTypes.func.isRequired,
-  // questionId: PropTypes.string.isRequired,
+  questionId: PropTypes.string,
   authorId: PropTypes.string.isRequired,
-  // question: PropTypes.object.isRequired,
+  question: PropTypes.object,
   UI: PropTypes.object.isRequired
 };
 

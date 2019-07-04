@@ -7,6 +7,7 @@ import {
   UPDATE_AUTHOR_IMG,
   POST_QUESTION,
   LOADING_DATA,
+  STOP_LOADING_DATA,
   DELETE_QUESTION,
   POST_VOTE,
   POST_VOTE_FROM_USER_PAGE,
@@ -37,6 +38,11 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case STOP_LOADING_DATA:
+      return {
+        ...state,
+        loading: false
+      };
     case SET_QUESTIONS:
       return {
         ...state,
@@ -57,7 +63,8 @@ export default function(state = initialState, action) {
     case SET_LEADERBOARD:
       return {
         ...state,
-        leaderboard: action.payload
+        leaderboard: action.payload,
+        loading: false
       };
     case UPDATE_AUTHOR_IMG:
       state.questions.answered.filter((data, index) => {

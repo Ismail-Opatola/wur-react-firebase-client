@@ -12,7 +12,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-// Icons
 
 // Animation
 import { Spring } from "react-spring/renderprops";

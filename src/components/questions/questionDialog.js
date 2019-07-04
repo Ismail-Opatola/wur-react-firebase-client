@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 
 import VoteForm from "./voteForm";
@@ -8,7 +9,6 @@ import MyButton from "../../util/MyButton";
 import Emoji from "../../util/emoji";
 
 // MUI Stuff
-import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -67,44 +67,55 @@ class QuestionDialog extends Component {
     open: false,
     oldPath: "",
     newPath: "",
-    questionState: this.props.questioN
+    // questionState: this.props.questioN
   };
   componentDidMount() {
-    // #34--1 access a particular user scream through route
-    /* for <Route path="/users/:handle/scream/:screamId" />*/
+    // access a particular user question through route
+    // for <Route path="/users/:handle/question/:questionId" />
     if (this.props.openDialog) {
-      // #34 open dialog on user page >> scream route
+      // open dialog on user page >> question route
       this.handleOpen();
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.questioN) {
-      this.setState({ questionState: nextProps.questioN });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.questioN) {
+  //     this.setState({ questionState: nextProps.questioN });
+  //   }
+  // }
 
   handleOpen = () => {
-    // #34--2 twitter dialog and route behavoir ... when user>>screamId is accessed from <url> directly, load screamDialog, save the previuos path, create a newPath for the opened scream and set url history to newPath, on handleClose reset url history to oldPath.
-    //  Note: Edge case: if the oldPath is same as the newPath, set oldPath to the accessed user page
+    // twitter dialog and route behavoir ... when user>>questionId is accessed from <url> directly, load questionDialog, save the previuos path, create a newPath for the opened question and set url history to newPath, on handleClose reset url history to oldPath.
     let oldPath = window.location.pathname;
 
-    const { authorId, questionId, questioN } = this.props; // #34--2
-    // form the path for the scream
-    const newPath = `/users/${authorId}/question/${questionId}`; // #34--2
+    const { 
+      authorId, 
+      questionId, 
+      // questioN 
+    } = this.props; 
+    // form the path for the question in view
+    const newPath = `/users/${authorId}/question/${questionId}`; 
 
-    // Edge Case
+    // Edge Case: if the oldPath is same as the newPath, set oldPath to the accessed user page
     if (oldPath === newPath) oldPath = `/users/${authorId}`;
 
     // push newPath
     window.history.pushState(null, null, newPath); // (null, null, <url>)
 
-    this.setState({ open: true, oldPath, newPath, questionState: questioN });
+    this.setState({ 
+      open: true, 
+      oldPath, 
+      newPath, 
+      // questionState: questioN 
+    });
     this.props.getQuestion(this.props.questionId);
   };
   handleClose = () => {
     // go back to the user's page ie push oldPath
     window.history.pushState(null, null, this.state.oldPath);
-    this.setState({ open: false, questionState: {} });
+    this.setState({ 
+      open: false, 
+      // questionState: {} 
+    });
     this.props.clearErrors();
   };
 
@@ -131,17 +142,24 @@ class QuestionDialog extends Component {
   render() {
     const {
       classes,
-      UI: { loading }
-    } = this.props;
-    const {
-      questionState: {
+      questioN: {
         question,
         votersPercentage,
         votersPhotoList,
         votersRatio,
         yourVote
-      }
-    } = this.state;
+      },
+      UI: { loading }
+    } = this.props;
+    // const {
+    //   questionState: {
+    //     question,
+    //     votersPercentage,
+    //     votersPhotoList,
+    //     votersRatio,
+    //     yourVote
+    //   }
+    // } = this.state;
 
     const votersAvi =
       !loading && this.mapPhotoListToState(votersPhotoList, classes);

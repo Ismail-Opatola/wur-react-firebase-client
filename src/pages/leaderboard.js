@@ -5,6 +5,7 @@ import LeaderCard from "../components/leaderboard/LeaderCard";
 import { getLeaderBoard } from "../redux/actions/dataActions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
+import QuestionCardSkeleton from "../util/questionCardSkeleton";
 
 const styles = theme => ({
   ...theme
@@ -16,16 +17,20 @@ export class leaderboard extends Component {
   }
 
   render() {
-    const { leaderboardData } = this.props;
-    const members = leaderboardData.length ? (
-      leaderboardData.map(member => (
-        <LeaderCard key={member.userId} member={member} />
-      ))
+    const { leaderboardData, loading } = this.props;
+    const members = !loading ? (
+      leaderboardData.length ? (
+        leaderboardData.map(member => (
+          <LeaderCard key={member.userId} member={member} />
+        ))
+      ) : (
+        <p>"Not Enough Data Yet"</p>
+      )
     ) : (
-      <p>"Not Enough Data Yet"</p>
+      <QuestionCardSkeleton />
     );
     return (
-      <Grid container justify="center" >
+      <Grid container justify="center">
         <Grid item sm={8} xs={12}>
           {members}
         </Grid>
@@ -41,7 +46,8 @@ leaderboard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  leaderboardData: state.data.leaderboard
+  leaderboardData: state.data.leaderboard,
+  loading: state.data.loading
 });
 
 const mapDispatchToProps = {

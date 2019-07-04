@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import Question from '../components/questions/question';
-import StaticProfile from '../components/profile/StaticProfile';
-import Grid from '@material-ui/core/Grid';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import Question from "../components/questions/question";
+import StaticProfile from "../components/profile/StaticProfile";
+import Grid from "@material-ui/core/Grid";
 
-// import questionSkeleton from '../util/questionSkeleton';
-// import ProfileSkeleton from '../util/ProfileSkeleton';
+import QuestionSkeleton from "../util/questionCardSkeleton";
+import ProfileSkeleton from "../util/profileSkeleton";
 
-import { connect } from 'react-redux';
-import { getUserData } from '../redux/actions/dataActions';
+import { connect } from "react-redux";
+import { getUserData } from "../redux/actions/dataActions";
 
 class user extends Component {
   state = {
@@ -25,33 +25,42 @@ class user extends Component {
     this.props.getUserData(userId); // fetch user questions
     axios
       .get(`/user/${userId}`) // fetch user static profile
-      .then((res) => {
+      .then(res => {
         this.setState({
           profile: res.data.user
         });
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
-  
+
   render() {
     const { singleUserQuestions, loading } = this.props;
-    const { questionIdParam } = this.state; // #34
+    const { questionIdParam } = this.state;
 
     const questionsMarkup = loading ? (
-    //   <QuestionSkeleton />
-    <div>"HAHAHA! The Skeleton laughs heartily"</div>
+      <QuestionSkeleton />
     ) : singleUserQuestions === null ? (
       <p>No questions yet from this user</p>
-    ) : !questionIdParam ? ( 
-    // #34 if no <Route path="/users/:userId/question/:questionId" but only <Route path="/users/:userId />
-      singleUserQuestions.map((question) => <Question key={question.questionId} question={question} />)
-    ) : ( 
-    // #34 if <Route path="/users/:userId/question/:questionId"
-      singleUserQuestions.map((question) => { // find question by questionIdParam
+    ) : !questionIdParam ? (
+      // if no <Route path="/users/:userId/question/:questionId" but only <Route path="/users/:userId />
+      singleUserQuestions.map(question => (
+        <Question key={question.questionId} question={question} />
+      ))
+    ) : (
+      // if <Route path="/users/:userId/question/:questionId"
+      singleUserQuestions.map(question => {
+        // find question by questionIdParam
         if (question.questionId !== questionIdParam)
           return <Question key={question.questionId} question={question} />;
-        else return <Question key={question.questionId} question={question} openDialog />; 
-        // #34 the one question that has the same questionId that we're trying to open, pass it a prop openDialog value of true, then in <question> we pass openDialog to <questionDialog> as props, then in <questionDialog> when ComponentDidMount check if this.props.openDialog ? open the dialog
+        else
+          return (
+            <Question
+              key={question.questionId}
+              question={question}
+              openDialog
+            />
+          );
+        // the one question that has the same questionId that we're trying to open, pass it a prop openDialog value of true, then in <question> we pass openDialog to <questionDialog> as props, then in <questionDialog> when ComponentDidMount check if this.props.openDialog ? open the dialog
       })
     );
 
@@ -61,9 +70,8 @@ class user extends Component {
           {questionsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
-          {this.state.profile === null ? (<div>
-            {/* <ProfileSkeleton /> */} 
-            "HAHAHA! The Skeleton laughs heartily"</div>
+          {this.state.profile === null ? (
+            <ProfileSkeleton />
           ) : (
             <StaticProfile profile={this.state.profile} /> // user static profile
           )}
@@ -78,7 +86,7 @@ user.propTypes = {
   singleUserQuestions: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   singleUserQuestions: state.data.singleUserQuestions,
   loading: state.data.loading
 });

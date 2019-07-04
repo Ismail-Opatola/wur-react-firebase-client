@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 
 import { connect } from "react-redux";
 import { getQuestions } from "../redux/actions/dataActions";
-
+import QuestionCardSkeleton from "../util/questionCardSkeleton";
 
 class home extends Component {
   state = {
@@ -42,30 +42,28 @@ class home extends Component {
     const { questions, loading } = this.props.data;
     const { showAnswered, showUnanswered } = this.state;
 
-    let recentQuestionsMarkup = !loading
-      ? showUnanswered
-        ? !questions && !questions.unanswered
-          ? "no questions yet"
-          : questions.unanswered.map(question => (
-              <Question key={question.questionId} question={question} />
-            ))
-        : showAnswered
-        ? !questions && !questions.answered
-          ? "not votes yet"
-          : questions.answered.map(question => (
-              <Question key={question.questionId} question={question} />
-            ))
-        : null
-      : "Loading...";
-
-    /*
-        let recentQuestionsMarkup = !loading
-        ? questions.map(question => (
+    let recentQuestionsMarkup = !loading ? (
+      showUnanswered ? (
+        !questions && !questions.unanswered ? (
+          "no questions yet"
+        ) : (
+          questions.unanswered.map(question => (
             <Question key={question.questionId} question={question} />
-            ))
-        : //   <ScreamSkeleton />
-            "Loading...";
-    */
+          ))
+        )
+      ) : showAnswered ? (
+        !questions && !questions.answered ? (
+          "not votes yet"
+        ) : (
+          questions.answered.map(question => (
+            <Question key={question.questionId} question={question} />
+          ))
+        )
+      ) : null
+    ) : (
+      <QuestionCardSkeleton />
+    );
+
     return (
       <Grid container spacing={16}>
         <Grid item sm={8} xs={12}>
@@ -99,7 +97,7 @@ class home extends Component {
         </Grid>
         <Grid item sm={4} xs={12}>
           <div className="inlineB">
-            <span>" "</span>
+            <br />
           </div>
           <Profile />
         </Grid>
@@ -121,4 +119,3 @@ export default connect(
   mapStateToProps,
   { getQuestions }
 )(home);
-

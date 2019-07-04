@@ -1,5 +1,3 @@
-import noImg from "../../images/no-img.png";
-
 import {
   SET_QUESTIONS,
   SET_SINGLE_USER_QUESTIONS,
@@ -70,7 +68,6 @@ export default function(state = initialState, action) {
       state.questions.answered.filter((data, index) => {
         if (data.authorId === action.payload.credentials.userId) {
           data.authorImg = action.payload.credentials.imageUrl;
-          // state.questions.answered.splice(index, 1);
           return data;
         }
         return false;
@@ -78,7 +75,6 @@ export default function(state = initialState, action) {
       state.questions.unanswered.filter((data, index) => {
         if (data.authorId === action.payload.credentials.userId) {
           data.authorImg = action.payload.credentials.imageUrl;
-          // state.questions.unanswered.splice(index, 1);
           return data;
         }
         return false;
@@ -92,13 +88,13 @@ export default function(state = initialState, action) {
       };
     case POST_VOTE:
       let newUnanswered = state.questions.unanswered.filter(
-        question => question.questionId !== action.payload.questionId // change this to action.payload.questionId
+        question => question.questionId !== action.payload.questionId 
       );
 
       return {
         ...state,
         questions: {
-          answered: state.questions.answered.concat(action.payload), //action.payload
+          answered: state.questions.answered.concat(action.payload), 
           unanswered: newUnanswered
         }
       };
@@ -119,7 +115,6 @@ export default function(state = initialState, action) {
         singleUserQuestions: [...state.singleUserQuestions]
       };
     case DELETE_QUESTION:
-      // TODO: IF MUTATION, NEST UPDATE
       let index1, index2;
 
       index1 = state.questions.unanswered.findIndex(
@@ -158,33 +153,3 @@ export default function(state = initialState, action) {
   }
 }
 
-//   case POST_VOTE:
-//         let index = state.questions.unanswered.findIndex(
-//           (question) => question.questionId === action.payload.questionId
-//         );
-//         state.questions[index] = action.payload;
-
-//         // update to single question in the store... see (questionDialog)
-//         if (state.question.questionId === action.payload.questionId) {
-//           state.question = action.payload;
-//         }
-//         return {
-//           ...state
-//         };
-
-// case POST_VOTE:
-//         let newUnanswered = state.questions.unanswered.filter(
-//           (question) => question.questionId !== action.payload.questionId
-//         );
-
-//         state.questions.unanswered = newUnanswered;
-
-//         state.questions.answered.concat(action.payload);
-
-//         // update to single question in the store... see (questionDialog)
-//         if (state.question.questionId === action.payload.questionId) {
-//           state.question = action.payload;
-//         }
-//         return {
-//           ...state
-//         };

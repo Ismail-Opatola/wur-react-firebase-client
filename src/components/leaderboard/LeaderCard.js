@@ -47,7 +47,15 @@ class LeaderCard extends Component {
   render() {
     const {
       classes,
-      member: { userId, username, imageUrl, created, answered, score, position }
+      member: { 
+        userId, 
+        username, 
+        imageUrl, 
+        created, 
+        answered, 
+        score, 
+        // position 
+      }
     } = this.props;
 
     return (

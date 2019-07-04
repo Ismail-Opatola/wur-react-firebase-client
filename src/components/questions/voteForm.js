@@ -65,7 +65,11 @@ class voteForm extends Component {
   };
 
   render() {
-    const { classes, authenticated, question } = this.props;
+    const { 
+      classes, 
+      // authenticated, 
+      question 
+    } = this.props;
     const errors = this.state.errors;
 
     const voteFormMarkup = (

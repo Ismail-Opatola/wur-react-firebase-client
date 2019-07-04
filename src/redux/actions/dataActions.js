@@ -157,15 +157,16 @@ export const postQuestion = newQuestion => dispatch => {
 };
 
 // @ fetch other user questions
-export const getUserData = userHandle => dispatch => {
+export const getUserData = userId => dispatch => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get(`/user/${userHandle}`) // returns profile data + questions data
+    .get(`/user/${userId}`) // returns profile data + questions data
     .then(res => {
       dispatch({
         type: SET_SINGLE_USER_QUESTIONS,
         payload: res.data.questions
-      }); // set only questions data
+      }); 
+      // set only questions data, w already fetched & saved profile to component state not redux store...see user_component
       dispatch(clearErrors());
     })
     .catch(() => {
@@ -189,11 +190,6 @@ export const getLeaderBoard = () => dispatch => {
       dispatch(clearErrors());
     })
     .catch(err => {
-      // dispatch({
-      //   type: SET_LEADERBOARD,
-      //   payload: []
-      // });
-      console.log({ LEADERBORED: err });
       dispatch({
         type: SET_ERRORS,
         payload: { error: "Network Error, Try again!" }

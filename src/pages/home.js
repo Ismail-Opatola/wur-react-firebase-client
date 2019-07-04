@@ -38,7 +38,6 @@ class home extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { questions, loading } = this.props.data;
     const { showAnswered, showUnanswered } = this.state;
 

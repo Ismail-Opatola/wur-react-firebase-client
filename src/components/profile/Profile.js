@@ -52,9 +52,9 @@ class Profile extends Component {
           bio,
           website,
           location,
-          score,
-          questions,
-          votes
+          // score,
+          // questions,
+          // votes
         },
         loading,
         authenticated

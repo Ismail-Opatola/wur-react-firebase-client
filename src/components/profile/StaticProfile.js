@@ -19,7 +19,18 @@ const styles = (theme) => ({
 const StaticProfile = (props) => {
   const {
     classes,
-    profile: { userId, fullname, createdAt, imageUrl, bio, website, location, score, questions, votes }
+    profile: { 
+      userId, 
+      fullname, 
+      createdAt, 
+      imageUrl, 
+      bio, 
+      website, 
+      location, 
+      // score, 
+      // questions, 
+      // votes 
+    }
   } = props;
 
   return (

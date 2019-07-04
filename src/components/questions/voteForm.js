@@ -89,12 +89,14 @@ class voteForm extends Component {
               control={<Radio color="primary" />}
               label={question.optionOne.text}
               labelPlacement="end"
+              inputProps={{ maxLength: 70 }}
             />
             <FormControlLabel
               value={"optionTwo"}
               control={<Radio color="primary" />}
               label={question.optionTwo.text}
               labelPlacement="end"
+              inputProps={{ maxLength: 70 }}
             />
           </RadioGroup>
           <Button

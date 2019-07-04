@@ -59,7 +59,7 @@ export const loginUser = (userData, history) => dispatch => {
       console.log("login ERROR:", err);
       dispatch({
         type: SET_ERRORS,
-        payload: err.response
+        payload: err.response.data
       });
     });
 };

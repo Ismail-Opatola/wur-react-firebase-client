@@ -84,8 +84,8 @@ export const postVote = (questionId, vote) => dispatch => {
         type: SET_QUESTION,
         payload: res.data
       });
-      dispatch({ type: STOP_LOADING_UI });
       dispatch(clearErrors());
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
       console.log(err);
@@ -120,8 +120,8 @@ export const postVoteFromUserPage = (questionId, vote) => dispatch => {
         type: SET_QUESTION,
         payload: res.data
       });
-      dispatch({ type: STOP_LOADING_UI });
       dispatch(clearErrors());
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
       console.log(err);
@@ -144,8 +144,8 @@ export const postQuestion = newQuestion => dispatch => {
         type: POST_QUESTION,
         payload: res.data
       });
-      dispatch({ type: STOP_LOADING_UI });
       dispatch(clearErrors());
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
       dispatch({

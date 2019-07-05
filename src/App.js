@@ -28,7 +28,7 @@ import axios from "axios";
 // custom theme
 const theme = createMuiTheme(themeObject);
 
-// set default baseURL
+// @deployment --- set axios to make req directly (proxy only works in developement)
 axios.defaults.baseURL =
   "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api";
 

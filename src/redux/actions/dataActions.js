@@ -112,8 +112,8 @@ export const postVoteFromUserPage = (questionId, vote) => dispatch => {
         type: POST_VOTE_FROM_USER_PAGE,
         payload: res.data
       });
-      return axios.get(`/question/${questionId}`); 
-      // @returns more data for a single question 
+      return axios.get(`/question/${questionId}`);
+      // @returns more data for a single question
     })
     .then(res => {
       dispatch({
@@ -156,26 +156,67 @@ export const postQuestion = newQuestion => dispatch => {
     });
 };
 
+// Cancel Request if a subsequent request is made
+// https://github.com/axios/axios/issues/1361
+const makeRequestCreator = () => {
+  let call;
+  return url => {
+    if (call) {
+      call.cancel("Only one request allowed at a time.");
+    }
+    call = axios.CancelToken.source();
+    return axios.get(url, {
+      cancelToken: call.token
+    });
+  };
+};
+const get = makeRequestCreator();
+
+// Then you can do:
+
 // @ fetch other user questions
-export const getUserData = userId => dispatch => {
-  dispatch({ type: LOADING_DATA });
-  axios
-    .get(`/user/${userId}`) // returns profile data + questions data
-    .then(res => {
-      dispatch({
-        type: SET_SINGLE_USER_QUESTIONS,
-        payload: res.data.questions
-      }); 
-      // set only questions data, w already fetched & saved profile to component state not redux store...see user_component
-      dispatch(clearErrors());
-    })
-    .catch(() => {
+export const getUserData = userId => async dispatch => {
+  try {
+    dispatch({ type: LOADING_DATA });
+
+    const res = await get(`/user/${userId}`); // returns profile data + questions data
+    dispatch({
+      type: SET_SINGLE_USER_QUESTIONS,
+      payload: res.data.questions
+    });
+    // set only questions data, we already fetched & saved profile to component state not redux store...see user_component
+    dispatch(clearErrors());
+  } catch (err) {
+    if (axios.isCancel(err)) {
+      console.error(`Cancelling previous request: ${err.message}`);
+    } else {
       dispatch({
         type: SET_SINGLE_USER_QUESTIONS,
         payload: null
       });
-    });
+    }
+  }
 };
+
+// export const getUserData = userId => dispatch => {
+//   dispatch({ type: LOADING_DATA });
+//   axios
+//     .get(`/user/${userId}`) // returns profile data + questions data
+//     .then(res => {
+//       dispatch({
+//         type: SET_SINGLE_USER_QUESTIONS,
+//         payload: res.data.questions
+//       });
+//       // set only questions data, w already fetched & saved profile to component state not redux store...see user_component
+//       dispatch(clearErrors());
+//     })
+//     .catch(() => {
+//       dispatch({
+//         type: SET_SINGLE_USER_QUESTIONS,
+//         payload: null
+//       });
+//     });
+// };
 
 // fetch leaderboard data
 export const getLeaderBoard = () => dispatch => {

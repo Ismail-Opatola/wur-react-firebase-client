@@ -94,7 +94,7 @@ class QuestionDialog extends Component {
     if (oldPath === newPath) oldPath = `/users/${authorId}`;
 
     // push newPath
-    window.history.pushState(null, null, newPath); // (null, null, <url>)
+    window.history.replaceState({key: questionId, state: ""}, null, newPath); // (null, null, <url>)
 
     this.setState({ 
       open: true, 
@@ -105,7 +105,7 @@ class QuestionDialog extends Component {
   };
   handleClose = () => {
     // go back to the user's page ie push oldPath
-    window.history.pushState(null, null, this.state.oldPath);
+    window.history.replaceState(null, null, this.state.oldPath);
     this.setState({ 
       open: false, 
     });
@@ -113,7 +113,7 @@ class QuestionDialog extends Component {
   };
 
   switchUrl = (voterId) => {
-    this.props.history.push(`/users/${voterId}`)
+    this.props.history.push(`/users/${voterId}`);
     window.location.reload(true);
   }
 
@@ -317,7 +317,7 @@ class QuestionDialog extends Component {
               {!votersAvi.length ? (
                 <p className={classes.root}>
                   <small>
-                    <Emoji symbol="🤔" label="pondering" /> Not Votes Yet
+                    <Emoji symbol="🤔" label="pondering" /> No Votes Yet
                   </small>
                 </p>
               ) : (

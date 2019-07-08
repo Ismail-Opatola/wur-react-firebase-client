@@ -25,12 +25,12 @@ import User from "./pages/user";
 
 import axios from "axios";
 
+// @deployment --- set axios to make req directly (proxy only works in developement)
+axios.defaults.baseURL = "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api";
+
 // custom theme
 const theme = createMuiTheme(themeObject);
 
-// @deployment --- set axios to make req directly (proxy only works in developement)
-axios.defaults.baseURL =
-  "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api";
 
 // @ check session user has token
 // @ set headers auth prop to token

@@ -14,7 +14,7 @@ import { getUserData } from "../redux/actions/dataActions";
 class user extends Component {
   state = {
     profile: null,
-    questionIdParam: null
+    questionIdParam: null,
   };
   componentDidMount() {
     const userId = this.props.match.params.userId;
@@ -36,6 +36,16 @@ class user extends Component {
   render() {
     const { singleUserQuestions, loading } = this.props;
     const { questionIdParam } = this.state;
+
+    window.addEventListener("popstate", e => {
+      e.preventDefault();
+      if (e.path[0].location.pathname.includes("users")) {
+        window.location.reload(true);
+        // this.componentWillUnMount()
+        // this.componentDidMount()
+        // this.forceUpdate()
+      }
+    });
 
     const questionsMarkup = loading ? (
       <QuestionSkeleton />

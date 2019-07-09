@@ -58,7 +58,7 @@ class login extends Component {
         <Grid item sm />
         <Grid item sm>
           <img src={AppIcon} alt="monkey" className={classes.image} />
-          <Typography variant="h2" className={classes.pageTitle}>
+          <Typography variant="h4" className={classes.pageTitle} style={{color: "grey"}}>
             Login
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>

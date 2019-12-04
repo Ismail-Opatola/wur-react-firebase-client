@@ -12,12 +12,13 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+
 // Icons
 import ChatIcon from "@material-ui/icons/Chat";
 // Redux
 import { connect } from "react-redux";
 
-const styles = {
+const styles = theme => ({
   prim: {
     color: "#00bcd4"
   },
@@ -27,8 +28,21 @@ const styles = {
     marginBottom: 20
   },
   image: {
-    minWidth: 200,
-    height: "auto"
+    // minWidth: 50,
+    // minheight: 50,
+    maxWidth: 200,
+    maxheight: 200,
+    width: "100%",
+    height: "auto",
+    // [theme.breakpoints.down("sm")]: {
+    //   display: "none",
+    //   visibility: "hidden",
+    //   width: 0,
+    //   height: 0
+    // }
+  },
+  hide: {
+    display: "none",
   },
   content: {
     padding: 25,
@@ -41,10 +55,11 @@ const styles = {
     textOverflow: "ellipsis",
     // width: 350
   }
-};
+});
 
 class question extends Component {
   render() {
+
     dayjs.extend(relativeTime);
     const {
       classes,

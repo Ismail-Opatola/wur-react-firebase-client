@@ -40,5 +40,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage" : "https://would-you-rather-app-c5895.firebaseapp.com"
+  "homepage" : "https://would-you-rather-app-c5895.firebaseapp.com",
+  "repository": "https://github.com/Ismail-Opatola/wur-react-firebase-client"
 }

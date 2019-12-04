@@ -25,4 +25,6 @@ yarn-error.log*
 src/util/TODO
 
 .firebase
-.firebase/**
+/.firebase
+/.firebase/
+/.firebase/**

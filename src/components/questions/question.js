@@ -27,7 +27,8 @@ const styles = {
     marginBottom: 20
   },
   image: {
-    minWidth: 200
+    minWidth: 200,
+    height: "auto"
   },
   content: {
     padding: 25,
@@ -35,10 +36,10 @@ const styles = {
   },
   ellipsis: {
     fontWeight: 500,
-    whiteSpace: "nowrap",
-    overflow: "hidden",
+    whiteSpace: "wrap",
+    overflow: "wrap",
     textOverflow: "ellipsis",
-    width: 350
+    // width: 350
   }
 };
 

@@ -107,8 +107,13 @@ class login extends Component {
             </Button>
             <br />
             <small>
-              dont have an account ? sign up <Link to="/signup">here</Link>
+              dont have an account? sign up <Link to="/signup">here</Link>
             </small>
+            <div style={{color: "#fff", background: "#666", marginTop: "10px", padding: "10px"}}>
+              <small>
+               here for a demo? sign in with <br/> <b>username: <em>charles@email.com</em></b><br/> <b>pass: <em>000000</em></b>
+              </small>
+            </div>
           </form>
         </Grid>
         <Grid item sm />

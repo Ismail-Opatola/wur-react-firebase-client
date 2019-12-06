@@ -26,6 +26,7 @@ a {
 .inlineN {
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 .inlineB {
   display: flex;

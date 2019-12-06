@@ -14,7 +14,7 @@ import { getUserData } from "../redux/actions/dataActions";
 class user extends Component {
   state = {
     profile: null,
-    questionIdParam: null,
+    questionIdParam: null
   };
   componentDidMount() {
     const userId = this.props.match.params.userId;
@@ -75,7 +75,7 @@ class user extends Component {
     );
 
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={4}>
         <Grid item sm={8} xs={12}>
           {questionsMarkup}
         </Grid>
@@ -101,7 +101,4 @@ const mapStateToProps = state => ({
   loading: state.data.loading
 });
 
-export default connect(
-  mapStateToProps,
-  { getUserData }
-)(user);
+export default connect(mapStateToProps, { getUserData })(user);

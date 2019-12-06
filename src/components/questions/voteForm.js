@@ -18,7 +18,7 @@ import {
 } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
-  ...theme
+  ...theme.spreadThis
 });
 
 class voteForm extends Component {

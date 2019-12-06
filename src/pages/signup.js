@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import AppIcon from "../images/icon.png";
 import { Link } from "react-router-dom";
 
 // MUI Stuff
+import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { signupUser } from "../redux/actions/userActions";
 
 const styles = theme => ({
-  ...theme
+  ...theme.spreadThis
 });
 
 class signup extends Component {
@@ -63,11 +63,15 @@ class signup extends Component {
     const { errors } = this.state;
 
     return (
-      <Grid container className={classes.form}>
+<Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
           <img src={AppIcon} alt="monkey" className={classes.image} />
-          <Typography variant="h4" className={classes.pageTitle}  style={{color: "grey"}}>
+          <Typography
+            variant="h4"
+            className={classes.pageTitle}
+            style={{ color: "grey" }}
+          >
             SignUp
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
@@ -83,7 +87,7 @@ class signup extends Component {
                 value={this.state.firstName}
                 onChange={this.handleChange}
                 inputProps={{ maxLength: 12 }}
-                // fullWidth
+                fullWidth
               />
               <TextField
                 id="lastName"
@@ -96,7 +100,7 @@ class signup extends Component {
                 value={this.state.lastName}
                 onChange={this.handleChange}
                 inputProps={{ maxLength: 12 }}
-                // fullWidth
+                fullWidth
               />
             </div>
 
@@ -181,7 +185,6 @@ const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(
-  mapStateToProps,
-  { signupUser }
-)(withStyles(styles)(signup));
+export default connect(mapStateToProps, { signupUser })(
+  withStyles(styles)(signup)
+);

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import jwtDecode from "jwt-decode";
 
 // Redux
@@ -13,7 +12,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 // components
 import Navbar from "./components/layout/navbar";
-import themeObject from "./util/theme";
+import theme from "./util/theme";
 import AuthRoute from "./util/authRoute";
 
 // pages
@@ -29,7 +28,7 @@ import axios from "axios";
 axios.defaults.baseURL = "https://us-central1-would-you-rather-app-c5895.cloudfunctions.net/api";
 
 // custom theme
-const theme = createMuiTheme(themeObject);
+// const theme = createMuiTheme(themeObject);
 
 
 // @ check session user has token

@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ProgressBar from "../../util/progressBar";
 
 const styles = theme => ({
-  ...theme,
+  ...theme.spraedThis,
   badge: {
     top: "50%",
     right: -3,

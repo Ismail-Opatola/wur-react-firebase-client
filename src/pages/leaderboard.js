@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import LeaderCard from "../components/leaderboard/LeaderCard";
 import { getLeaderBoard } from "../redux/actions/dataActions";
-import withStyles from "@material-ui/core/styles/withStyles";
+import {  withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import QuestionCardSkeleton from "../util/questionCardSkeleton";
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
-  ...theme
+  ...theme.spreadThis
 });
 
 export class leaderboard extends Component {
@@ -24,7 +25,7 @@ export class leaderboard extends Component {
           <LeaderCard key={member.userId} member={member} />
         ))
       ) : (
-        <p>"Not Enough Data Yet"</p>
+        <Typography align="center" >::::...<em>Not enough data yet!...::::</em></Typography>
       )
     ) : (
       <QuestionCardSkeleton />

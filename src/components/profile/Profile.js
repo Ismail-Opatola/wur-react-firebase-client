@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
@@ -8,6 +7,7 @@ import MyButton from "../../util/MyButton";
 import ProfileSkeleton from "../../util/profileSkeleton";
 
 // MUI stuff
+import {  withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 
 const styles = theme => ({
-  ...theme
+  ...theme.spreadThis
 });
 
 class Profile extends Component {
@@ -51,7 +51,7 @@ class Profile extends Component {
           imageUrl,
           bio,
           website,
-          location,
+          location
           // score,
           // questions,
           // votes
@@ -145,7 +145,7 @@ class Profile extends Component {
         </Paper>
       )
     ) : (
-        <ProfileSkeleton />
+      <ProfileSkeleton />
     );
 
     return profileMarkup;

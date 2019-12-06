@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
 import Profile from "../components/profile/Profile";
+import Toolbar from "@material-ui/core/Toolbar";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Box from "@material-ui/core/Box";
+
 // import ScreamSkeleton from '../util/ScreamSkeleton';
 
 import Button from "@material-ui/core/Button";
@@ -64,10 +68,10 @@ class home extends Component {
     );
 
     return (
-      <Grid container spacing={16}>
-        <Grid item sm={8} xs={12}>
-          <div>
-            <div className="inlineB">
+      <Box>
+        <Toolbar style={{ maxWidth: 500, margin: "auto", marginBottom: 10 }}>
+          <Box style={{ width: "100%" }}>
+            <ButtonGroup size={"large"} fullWidth>
               <Button
                 tip="Questions you've not voted in"
                 onClick={() => this.handleView("unanswered")}
@@ -90,17 +94,18 @@ class home extends Component {
               >
                 Answered Questions
               </Button>
-            </div>
-            <>{recentQuestionsMarkup}</>
-          </div>
+            </ButtonGroup>
+          </Box>
+        </Toolbar>
+        <Grid container spacing={4}>
+          <Grid item sm={8} xs={12} direction="column">
+            <Box>{recentQuestionsMarkup}</Box>
+          </Grid>
+          <Grid item sm={4} xs={12}>
+            <Profile />
+          </Grid>
         </Grid>
-        <Grid item sm={4} xs={12}>
-          <div className="inlineB">
-            <br />
-          </div>
-          <Profile />
-        </Grid>
-      </Grid>
+      </Box>
     );
   }
 }
@@ -114,7 +119,4 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(
-  mapStateToProps,
-  { getQuestions }
-)(home);
+export default connect(mapStateToProps, { getQuestions })(home);

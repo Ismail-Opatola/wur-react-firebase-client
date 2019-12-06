@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import PropTypes from 'prop-types';
-import AppIcon from '../images/icon.png';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AppIcon from "../images/icon.png";
+import { Link } from "react-router-dom";
 
 // MUI Stuff
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {  withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Redux stuff
-import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions';
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
 
-const styles = (theme) => ({
-  ...theme
+const styles = theme => ({
+  ...theme.spreadThis
 });
 
 class login extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       errors: {}
     };
   }
@@ -33,7 +33,7 @@ class login extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const userData = {
       email: this.state.email,
@@ -41,7 +41,7 @@ class login extends Component {
     };
     this.props.loginUser(userData, this.props.history);
   };
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -58,7 +58,11 @@ class login extends Component {
         <Grid item sm />
         <Grid item sm>
           <img src={AppIcon} alt="monkey" className={classes.image} />
-          <Typography variant="h4" className={classes.pageTitle} style={{color: "grey"}}>
+          <Typography
+            variant="h4"
+            className={classes.pageTitle}
+            style={{ color: "grey" }}
+          >
             Login
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
@@ -109,9 +113,23 @@ class login extends Component {
             <small>
               dont have an account? sign up <Link to="/signup">here</Link>
             </small>
-            <div style={{color: "#fff", background: "#666", marginTop: "10px", padding: "10px"}}>
+            <div
+              style={{
+                color: "#fff",
+                background: "#666",
+                marginTop: "10px",
+                padding: "10px"
+              }}
+            >
               <small>
-               here for a demo? sign in with <br/> <b>username: <em>charles@email.com</em></b><br/> <b>pass: <em>000000</em></b>
+                here for a demo? sign in with <br />{" "}
+                <b>
+                  username: <em>charles@email.com</em>
+                </b>
+                <br />{" "}
+                <b>
+                  pass: <em>000000</em>
+                </b>
               </small>
             </div>
           </form>
@@ -129,7 +147,7 @@ login.propTypes = {
   UI: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user,
   UI: state.UI
 });
@@ -142,4 +160,3 @@ export default connect(
   mapStateToProps,
   mapActionsToProps
 )(withStyles(styles)(login));
-

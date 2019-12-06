@@ -27,7 +27,7 @@ import { connect } from "react-redux";
 import { getQuestion, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
-  ...theme,
+  ...theme.spreadThis,
   profileImage: {
     width: "100%",
     height: "100%",

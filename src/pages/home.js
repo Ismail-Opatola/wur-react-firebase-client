@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 
 import Question from "../components/questions/question";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import Profile from "../components/profile/Profile";
+import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Box from "@material-ui/core/Box";
-
 // import ScreamSkeleton from '../util/ScreamSkeleton';
 
 import Button from "@material-ui/core/Button";
@@ -16,6 +17,19 @@ import { connect } from "react-redux";
 import { getQuestions } from "../redux/actions/dataActions";
 import QuestionCardSkeleton from "../util/questionCardSkeleton";
 
+const useStyle = theme => ({
+  appbar: {
+    zIndex: 100,
+    top: 55,
+    marginBottom: theme.spacing(2),
+    display: "block",
+    padding: theme.spacing(2),
+    background: theme.palette.background.paper
+  },
+  cardList: {
+    marginTop: theme.spacing(4)
+  }
+});
 class home extends Component {
   state = {
     showAnswered: false,
@@ -42,6 +56,7 @@ class home extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const { questions, loading } = this.props.data;
     const { showAnswered, showUnanswered } = this.state;
 
@@ -68,44 +83,62 @@ class home extends Component {
     );
 
     return (
-      <Box>
-        <Toolbar style={{ maxWidth: 500, margin: "auto", marginBottom: 10 }}>
-          <Box style={{ width: "100%" }}>
-            <ButtonGroup size={"large"} fullWidth>
-              <Button
-                tip="Questions you've not voted in"
-                onClick={() => this.handleView("unanswered")}
-                fullWidth
-                style={{
-                  fontWeight: 900,
-                  color: `${showUnanswered ? "darkGrey" : "grey"}`
-                }}
-              >
-                Unanswered Questions
-              </Button>
-              <Button
-                tip="Questions you've voted in"
-                onClick={() => this.handleView("answered")}
-                fullWidth
-                style={{
-                  fontWeight: 900,
-                  color: `${showAnswered ? "darkGrey" : "grey"}`
-                }}
-              >
-                Answered Questions
-              </Button>
-            </ButtonGroup>
-          </Box>
-        </Toolbar>
-        <Grid container spacing={4}>
-          <Grid item sm={8} xs={12} direction="column">
-            <Box>{recentQuestionsMarkup}</Box>
+      <>
+        <Box style={{ position: "relative @important!" }}>
+          <AppBar className={classes.appbar} position="sticky">
+            <Toolbar
+              style={{
+                display: "block",
+                maxWidth: 600,
+                margin: "auto"
+                // marginBottom: 10
+                // padding: 2
+              }}
+              variant="dense"
+            >
+              <Box style={{ width: "100%" }}>
+                <ButtonGroup
+                  variant="outlined"
+                  color="secondary"
+                  size={"large"}
+                  fullWidth
+                >
+                  <Button
+                    tip="Questions you've not voted in"
+                    onClick={() => this.handleView("unanswered")}
+                    fullWidth
+                    style={{
+                      fontWeight: 900,
+                      color: `${showUnanswered ? "darkGrey" : "grey"}`
+                    }}
+                  >
+                    Unanswered Questions
+                  </Button>
+                  <Button
+                    tip="Questions you've voted in"
+                    onClick={() => this.handleView("answered")}
+                    fullWidth
+                    style={{
+                      fontWeight: 900,
+                      color: `${showAnswered ? "darkGrey" : "grey"}`
+                    }}
+                  >
+                    Answered Questions
+                  </Button>
+                </ButtonGroup>
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Grid container spacing={4} className={classes.cardList}>
+            <Grid item sm={8} xs={12} direction="column">
+              <Box>{recentQuestionsMarkup}</Box>
+            </Grid>
+            <Grid item sm={4} xs={12}>
+              <Profile />
+            </Grid>
           </Grid>
-          <Grid item sm={4} xs={12}>
-            <Profile />
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </>
     );
   }
 }
@@ -119,4 +152,6 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(mapStateToProps, { getQuestions })(home);
+export default connect(mapStateToProps, { getQuestions })(
+  withStyles(useStyle)(home)
+);

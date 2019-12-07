@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 // MUI Stuff
 import { withStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
@@ -85,7 +84,7 @@ class LeaderCard extends Component {
                     boxSizing: "border-box",
                     fontWeight: 900,
                     fontSize: "1.5em",
-                    color: "grey"
+                    borderColor: "grey"
                   }}
                   size="small"
                 >
@@ -104,7 +103,7 @@ class LeaderCard extends Component {
                   <TableBody>
                     <TableRow key={1}>
                       <TableCell>
-                        <Typography style={{ fontWeight: 600, color: "#666" }}>
+                        <Typography color="secondary">
                           Answered questions{" "}
                         </Typography>
                       </TableCell>
@@ -121,7 +120,7 @@ class LeaderCard extends Component {
                     </TableRow>
                     <TableRow key={2}>
                       <TableCell>
-                        <Typography style={{ fontWeight: 600, color: "#666" }}>
+                        <Typography color="secondary">
                           Created questions{" "}
                         </Typography>
                       </TableCell>
@@ -152,22 +151,22 @@ class LeaderCard extends Component {
             <Box style={{ height: "100%", width: "100%" }}>
               <Table size="small" className={classes.scoreTable}>
                 <TableHead
-                  style={{ border: "1px solid lightgrey", borderTop: "none" }}
+                  style={{ border: "0.3px solid darkGrey", borderTop: "none" }}
                 >
                   <TableCell align="center">
                     <Typography
                       style={{
                         fontWeight: 900,
-                        fontSize: "1.5em",
-                        color: "grey"
+                        fontSize: "1.5em"
                       }}
+                      color="textSecondary"
                       light
                     >
                       Score
                     </Typography>
                   </TableCell>
                 </TableHead>
-                <TableBody style={{ border: "1px solid lightgrey" }}>
+                <TableBody style={{ border: "0.3px solid darkGrey" }}>
                   <TableCell
                     align="center"
                     style={{
@@ -177,7 +176,9 @@ class LeaderCard extends Component {
                     }}
                   >
                     <Avatar align="center" className={classes.avatar}>
-                      {innerSpringProps.number.toFixed()}
+                      <Typography color="textPrimary">
+                        {innerSpringProps.number.toFixed()}
+                      </Typography>
                     </Avatar>
                   </TableCell>
                 </TableBody>

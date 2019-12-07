@@ -98,6 +98,7 @@ class LeaderCard extends Component {
                           color="primary"
                         >{`@${username}`}</Typography>
                       </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>

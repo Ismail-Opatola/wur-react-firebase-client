@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AppIcon from "../images/icon.png";
 import { Link } from "react-router-dom";
+import MuiLink from "@material-ui/core/Link";
 
 // MUI Stuff
 import { withStyles } from "@material-ui/core/styles";
@@ -63,7 +64,7 @@ class signup extends Component {
     const { errors } = this.state;
 
     return (
-<Grid container className={classes.form}>
+      <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
           <img src={AppIcon} alt="monkey" className={classes.image} />
@@ -162,9 +163,12 @@ class signup extends Component {
               )}
             </Button>
             <br />
-            <small>
-              Already have an account ? Login <Link to="/login">here</Link>
-            </small>
+            <Typography variant="caption" color="textPrimary">
+              Already have an account ? Login{" "}
+              <MuiLink to="/login" component={Link} color="primary">
+                here
+              </MuiLink>
+            </Typography>
           </form>
         </Grid>
         <Grid item sm />

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AppIcon from "../images/icon.png";
 import { Link } from "react-router-dom";
-
+import MuiLink from "@material-ui/core/Link";
 // MUI Stuff
-import {  withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -110,9 +110,12 @@ class login extends Component {
               )}
             </Button>
             <br />
-            <small>
-              dont have an account? sign up <Link to="/signup">here</Link>
-            </small>
+            <Typography variant="caption" color="textPrimary">
+              dont have an account? sign up{" "}
+              <MuiLink component={Link} to="/signup" color="primary">
+                here
+              </MuiLink>
+            </Typography>
             <div
               style={{
                 color: "#fff",

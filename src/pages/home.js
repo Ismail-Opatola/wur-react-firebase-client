@@ -90,8 +90,8 @@ class home extends Component {
               style={{
                 display: "block",
                 maxWidth: 600,
-                margin: "auto"
-                // marginBottom: 10
+                margin: "auto",
+                marginTop: 10
                 // padding: 2
               }}
               variant="dense"
@@ -99,7 +99,7 @@ class home extends Component {
               <Box style={{ width: "100%" }}>
                 <ButtonGroup
                   variant="outlined"
-                  color="secondary"
+                  color="primary"
                   size={"large"}
                   fullWidth
                 >

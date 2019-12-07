@@ -41,7 +41,7 @@ export class resultPoll extends Component {
       question
     } = this.props;
     return (
-      <div>
+      <div style={{ maxWidth: 200 }}>
         <div>
           <Grid className={classes.grid}>
             <Badge
@@ -87,7 +87,7 @@ export class resultPoll extends Component {
                   Would you rather {question.optionTwo.text}?
                 </Typography>
                 <ProgressBar percentage={votersPercentage.optionTwo} />
-                <Typography fontWeight="fontWeightBold" >
+                <Typography fontWeight="fontWeightBold">
                   {votersRatio.optionTwo}
                 </Typography>
               </div>

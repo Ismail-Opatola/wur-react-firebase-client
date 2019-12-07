@@ -119,7 +119,6 @@ const mapStateToProps = state => ({
   notifications: state.user.notifications
 });
 
-export default connect(
-  mapStateToProps,
-  { markNotificationsRead }
-)(Notifications);
+export default connect(mapStateToProps, { markNotificationsRead })(
+  Notifications
+);

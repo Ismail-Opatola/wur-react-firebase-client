@@ -5,7 +5,6 @@ import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import MyButton from "../../util/MyButton";
 import ProfileSkeleton from "../../util/profileSkeleton";
-import { red } from "@material-ui/core/colors";
 
 // MUI stuff
 import { withStyles } from "@material-ui/core/styles";
@@ -139,7 +138,6 @@ class Profile extends Component {
               color="secondary"
               component={Link}
               to="/signup"
-              style={{ background: red.A400 }}
             >
               Signup
             </Button>

@@ -104,7 +104,7 @@ class LeaderCard extends Component {
                   <TableBody>
                     <TableRow key={1}>
                       <TableCell>
-                        <Typography color="secondary">
+                        <Typography color="textPrimary">
                           Answered questions{" "}
                         </Typography>
                       </TableCell>
@@ -121,7 +121,7 @@ class LeaderCard extends Component {
                     </TableRow>
                     <TableRow key={2}>
                       <TableCell>
-                        <Typography color="secondary">
+                        <Typography color="textPrimary">
                           Created questions{" "}
                         </Typography>
                       </TableCell>

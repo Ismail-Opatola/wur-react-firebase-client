@@ -28,6 +28,13 @@ import { getQuestion, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
+  dialog: {
+    width: "100%",
+    height: "fit-content",
+    // overflowY: "scroll",
+    margin: "auto",
+    boxSizing: "border-box"
+  },
   profileImage: {
     width: "100%",
     height: "100%",
@@ -39,7 +46,8 @@ const styles = theme => ({
   },
   closeButton: {
     position: "absolute",
-    left: "90%"
+    left: "90%",
+    color: theme.palette.primary.main
   },
   expandButton: {
     position: "absolute",
@@ -56,10 +64,12 @@ const styles = theme => ({
   root: {
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
     flexWrap: "wrap"
   },
   chip: {
-    margin: ".5em"
+    margin: ".5em",
+    color: theme.palette.text.primary
   }
 });
 
@@ -67,7 +77,7 @@ class QuestionDialog extends Component {
   state = {
     open: false,
     oldPath: "",
-    newPath: "",
+    newPath: ""
   };
   componentDidMount() {
     // access a particular user question through route
@@ -77,45 +87,41 @@ class QuestionDialog extends Component {
       this.handleOpen();
     }
   }
-  
 
   handleOpen = () => {
     // twitter dialog and route behavoir ... when user>>questionId is accessed from <url> directly, load questionDialog, save the previuos path, create a newPath for the opened question and set url history to newPath, on handleClose reset url history to oldPath.
     let oldPath = window.location.pathname;
 
-    const { 
-      authorId, 
-      questionId, 
-    } = this.props; 
+    const { authorId, questionId } = this.props;
     // form the path for the question in view
-    const newPath = `/users/${authorId}/question/${questionId}`; 
+    const newPath = `/users/${authorId}/question/${questionId}`;
 
     // Edge Case: if the oldPath is same as the newPath, set oldPath to the accessed user page
     if (oldPath === newPath) oldPath = `/users/${authorId}`;
 
     // push newPath
-    window.history.replaceState({key: questionId, state: ""}, null, newPath); // (null, null, <url>)
+    window.history.replaceState({ key: questionId, state: "" }, null, newPath); // (null, null, <url>)
 
-    this.setState({ 
-      open: true, 
-      oldPath, 
-      newPath, 
+    this.setState({
+      open: true,
+      oldPath,
+      newPath
     });
     this.props.getQuestion(this.props.questionId);
   };
   handleClose = () => {
     // go back to the user's page ie push oldPath
     window.history.replaceState(null, null, this.state.oldPath);
-    this.setState({ 
-      open: false, 
+    this.setState({
+      open: false
     });
     this.props.clearErrors();
   };
 
-  switchUrl = (voterId) => {
+  switchUrl = voterId => {
     this.props.history.push(`/users/${voterId}`);
     window.location.reload(true);
-  }
+  };
 
   mapPhotoListToState = (votersPhotoList, classes) => {
     let photoChips =
@@ -148,7 +154,6 @@ class QuestionDialog extends Component {
       },
       UI: { loading }
     } = this.props;
-
 
     const votersAvi =
       !loading && this.mapPhotoListToState(votersPhotoList, classes);
@@ -217,7 +222,7 @@ class QuestionDialog extends Component {
             </Typography>
             <hr className={classes.invisibleSeparator} />
             <div>
-              <VoteForm question={question} oldPath={this.state.oldPath}/>
+              <VoteForm question={question} oldPath={this.state.oldPath} />
             </div>
           </Grid>
         </Grid>
@@ -241,7 +246,7 @@ class QuestionDialog extends Component {
           </Grid>
           <Grid
             container
-            spacing={16}
+            spacing={2}
             style={{
               alignItems: "center",
               width: "100%",
@@ -300,8 +305,10 @@ class QuestionDialog extends Component {
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
+          // fullScreen
           fullWidth
           maxWidth="sm"
+          className={classes.dialog}
         >
           <MyButton
             tip="Close"
@@ -352,8 +359,5 @@ const mapActionsToProps = {
 
 export default compose(
   withStyles(styles, { name: "QuestionDialog" }),
-  connect(
-    mapStateToProps,
-    mapActionsToProps
-  )
+  connect(mapStateToProps, mapActionsToProps)
 )(withRouter(QuestionDialog));
